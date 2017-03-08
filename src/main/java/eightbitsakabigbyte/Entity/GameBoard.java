@@ -46,33 +46,12 @@ public class GameBoard {
 
     //Instantiate one piece for the MVP
     public GameBoard(GamePiece gamePiece){
-        for(int row = 0; row < 3; row++){
-            for(int column = 0; column<gameBoard.length; column++){
-                if(column == 1){
-                    gameBoard[row][column] = gamePiece;
-                } else gameBoard[row][column] = emptyPiece;
+        for (int row = 0; row < gameBoard.length; row++ ) {
+            for (int column = 0; column < gameBoard.length; column++) {
+                gameBoard[row][column] = emptyPiece;
             }
         }
-
-        for(int row = 5; row < gameBoard.length; row++){
-            for(int column=0; column<gameBoard.length; column++){
-                if(column % 2 == 0 && row %2 != 0){
-                    gameBoard[row][column] = emptyPiece;
-                } if(row == 6 && column %2 !=0){
-                    gameBoard[row][column] = emptyPiece;
-                }
-            }
-        }
-
-        for(int row = 0; row < gameBoard.length; row++){
-            for(int column = 0; column < gameBoard.length; column++){
-                if(gameBoard[row][column] == null){
-                    gameBoard[row][column] = emptyPiece;
-                }
-            }
-        }
-
-
+        gameBoard[0][1] = blackPiece;
     }
 
     //Create a method to redraw the board once moves are made
