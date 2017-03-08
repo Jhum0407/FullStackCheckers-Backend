@@ -40,6 +40,7 @@ public class GameBoardTest {
         int actual = 0;
         for(int i = 0; i<board.gameBoard.length; i++){
             for(int j =0; j< board.gameBoard.length; j++){
+                System.out.println(board.gameBoard[0][1].getIdentifier());
                 actual=actual + 1;
             }
         } assertEquals(expected, actual);

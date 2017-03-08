@@ -7,6 +7,7 @@ public class GamePiece {
 
     private String color = "";
     private boolean isKing = false;
+    private int identifier = 0;
 
     public GamePiece(String color){
         this.color = color;
@@ -26,5 +27,13 @@ public class GamePiece {
 
     public void setKing(boolean king) {
         isKing = king;
+    }
+
+    public int getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
     }
 }

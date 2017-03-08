@@ -9,18 +9,23 @@ public class GameBoard {
 
     public GamePiece[][] gameBoard = new GamePiece[8][8];
 
-    GamePiece redPiece = new GamePiece("red");
+    GamePiece redPiece;
     GamePiece blackPiece = new GamePiece("black");
     GamePiece emptyPiece = new GamePiece("empty");
+    int counter = 1;
 
     //Instantiate a starting board
     public GameBoard() {
         for(int row = 0; row < 3; row++){
             for(int column=0; column<gameBoard.length; column++){
                 if(column % 2 != 0 && row %2 == 0){
-                    gameBoard[row][column] = redPiece;
+                    gameBoard[row][column] = new GamePiece("red");
+                    gameBoard[row][column].setIdentifier(counter);
+                    counter++;
                 } if(row == 1 && column %2 == 0){
-                    gameBoard[row][column] = redPiece;
+                    gameBoard[row][column] = new GamePiece("red");
+                    gameBoard[row][column].setIdentifier(counter);
+                    counter++;
                 }
             }
         }
@@ -28,9 +33,13 @@ public class GameBoard {
         for(int row = 5; row < gameBoard.length; row++){
             for(int column=0; column<gameBoard.length; column++){
                 if(column % 2 == 0 && row %2 != 0){
-                    gameBoard[row][column] = blackPiece;
+                    gameBoard[row][column] = new GamePiece("black");
+                    gameBoard[row][column].setIdentifier(counter);
+                    counter++;
                 } if(row == 6 && column %2 !=0){
-                    gameBoard[row][column] = blackPiece;
+                    gameBoard[row][column] = new GamePiece("black");
+                    gameBoard[row][column].setIdentifier(counter);
+                    counter++;
                 }
             }
         }
