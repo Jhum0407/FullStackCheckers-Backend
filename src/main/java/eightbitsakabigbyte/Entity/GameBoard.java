@@ -10,8 +10,11 @@ public class GameBoard {
     public GamePiece[][] gameBoard = new GamePiece[8][8];
 
     GamePiece redPiece;
-    GamePiece blackPiece = new GamePiece("black");
+    GamePiece blackPiec;
     GamePiece emptyPiece = new GamePiece("empty");
+    {
+        emptyPiece.setIdentifier(-1);
+    }
     int counter = 1;
 
     //Instantiate a starting board
@@ -60,7 +63,7 @@ public class GameBoard {
                 gameBoard[row][column] = emptyPiece;
             }
         }
-        gameBoard[0][1] = blackPiece;
+        gameBoard[0][1] = new GamePiece("black");
     }
 
     //Create a method to redraw the board once moves are made
