@@ -37,7 +37,6 @@ public class GameService {
     }
 
 
-
     public GameBoard redrawGameBoard(GamePiece gamePiece, int[][] moveFrom, int[][] moveTo){
 
         return null;
