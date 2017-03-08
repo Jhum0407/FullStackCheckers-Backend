@@ -5,9 +5,9 @@ package eightbitsakabigbyte.Service;
  */
 public class MoveRequest {
 
-    private int id;
-    private int column;
-    private int row;
+    private static int id;
+    private static int row;
+    private static int column;
 
     public int getId() {
         return id;

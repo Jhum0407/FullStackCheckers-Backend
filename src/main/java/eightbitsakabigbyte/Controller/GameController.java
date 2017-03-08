@@ -29,6 +29,7 @@ public class GameController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String sendGameBoard(){
+        System.out.println(board.toString());
         return json.convertBoardToJson(board);
     }
 
