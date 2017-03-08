@@ -21,15 +21,16 @@ public class GameServiceTest {
     public void setUp(){
         gameService = new GameService();
         board = new GameBoard();
-        piece = new GamePiece("red");
+        piece = new GamePiece("emptyColor");
     }
 
-//    @Test
-//    public void getGameBoardMVPTest(){
-//            String expected = "red";
-//            board.gameBoard[0][1] = piece;
-//            GameBoard returnedBoard = gameService.getGameBoardMVP();
-//            String actual = returnedBoard.
-//            assertEquals(expected, actual);
-//    }
+    @Test
+    public void getGameBoardMVPTest(){
+            String expected = "redColor";
+            board.gameBoard[0][1] = piece;
+            GameBoard returnedBoard = gameService.getGameBoardMVP(piece);
+            String actual = returnedBoard.gameBoard[0][1].getColor();
+            assertEquals(expected, actual);
+    }
 }
+

@@ -12,19 +12,18 @@ import org.springframework.stereotype.Service;
 public class GameService {
 
     private GameBoard board = new GameBoard();
-    private GamePiece gamePiece = new GamePiece("emptyPiece");
+    private GamePiece emptyGamePiece = new GamePiece("emptyPiece");
 
-    //Instantiate one piece for the MVP
+    //Instantiate one piece at [0][1] (upper left corner) for the MVP
     public GameBoard getGameBoardMVP(GamePiece gamePiece){
         for (int row = 0; row < board.gameBoard.length; row++ ) {
             for (int column = 0; column < board.gameBoard.length; column++) {
-                board.gameBoard[row][column] = gamePiece;
+                board.gameBoard[row][column] = emptyGamePiece;
             }
         }
-        board.gameBoard[0][1] = new GamePiece("blackColor");
-//        gamePiece.setColor("blackColor");
-//        gamePiece.setIdentifier(1);
-//        board.gameBoard[0][1] = gamePiece;
+        board.gameBoard[0][1] = gamePiece;
+        gamePiece.setColor("redColor");
+        gamePiece.setIdentifier(1);
         return board;
     }
 

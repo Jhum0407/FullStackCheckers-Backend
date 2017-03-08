@@ -33,6 +33,7 @@ public class GameController {
         return jsonConverter.convertBoardToJson(board);
     }
 
+    //Post the mvp board with one checker in position [0][1]
     @RequestMapping(value = "/mvp", method = RequestMethod.POST)
     public String getMvpBoard(){
         mvpBoard = gameService.getGameBoardMVP(gamePiece);
@@ -40,7 +41,7 @@ public class GameController {
     }
 
     //Give back an updated state of the game board
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateGameBoard(@RequestBody GameBoard board){
 
     }
