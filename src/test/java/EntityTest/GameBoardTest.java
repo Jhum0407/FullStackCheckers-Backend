@@ -21,6 +21,7 @@ public class GameBoardTest {
     public void setUp(){
         board = new GameBoard();
         gamePiece = new GamePiece("red");
+        board2 = new GameBoard();
     }
 
     @Test
@@ -37,8 +38,8 @@ public class GameBoardTest {
 
         int expected = 64;
         int actual = 0;
-        for(int i = 0; i<board.gameBoard.length; i++){
-            for(int j =0; j< board.gameBoard.length; j++){
+        for(int i = 0; i<board.getGameBoard().length; i++){
+            for(int j =0; j< board.getGameBoard().length; j++){
                 actual=actual + 1;
             }
         } assertEquals(expected, actual);
@@ -47,15 +48,15 @@ public class GameBoardTest {
     @Test
     public void onePieceCorrectLocationTest(){
         String expected = "red";
-        board2.gameBoard[0][1] = gamePiece;
+        board2.getGameBoard()[0][1] = gamePiece;
         String actual = gamePiece.getColor();
         assertEquals(expected, actual);
     }
 
     @Test
     public void onePieceIncorrectLocationTest(){
-        String expected = "red";
-        String actual = board2.gameBoard[0][3].getColor();
+        String expected = "black";
+        String actual = board2.getGameBoard()[0][3].getColor();
         assertNotEquals(expected, actual);
     }
 }

@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import eightbitsakabigbyte.Service.MoveRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
-
-import java.util.Collection;
 
 /**
  * Created by gillianreynolds-titko on 3/7/17.
@@ -42,8 +44,8 @@ public class GameController {
 
     //Give back an updated state of the game board
     @RequestMapping(value = "/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateGameBoard(@RequestBody GameBoard board){
-
+    public boolean getMoveRequest(@RequestBody MoveRequest request){
+        System.out.println(request.toString());
+        return true;
     }
-
 }

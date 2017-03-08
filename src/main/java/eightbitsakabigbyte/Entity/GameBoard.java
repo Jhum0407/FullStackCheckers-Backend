@@ -5,16 +5,19 @@ import sun.plugin2.message.GetAppletMessage;
 /**
  * Created by gillianreynolds-titko on 3/7/17.
  */
+
 public class GameBoard {
 
-    public GamePiece[][] gameBoard = new GamePiece[8][8];
+    private GamePiece[][] gameBoard = new GamePiece[8][8];
 
-    GamePiece redPiece;
-    GamePiece blackPiece = new GamePiece("black");
     GamePiece emptyPiece = new GamePiece("empty");
+    {
+        emptyPiece.setIdentifier(-1);
+    }
     int counter = 1;
 
     //Instantiate a starting board
+
     public GameBoard() {
         for(int row = 0; row < 3; row++){
             for(int column=0; column<gameBoard.length; column++){
@@ -52,6 +55,20 @@ public class GameBoard {
            }
         }
     }
+
+
+    public GamePiece[][] getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GamePiece[][] gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    public String toString(){
+        return null;
+    }
+
 
 }
 
