@@ -76,8 +76,8 @@ public class GameBoard {
     }
 
     //Create a method to redraw the board once moves are made
-    public void redrawGameBoard(){
-
+    public GameBoard redrawGameBoard(){
+        return null;
     }
 
 }
