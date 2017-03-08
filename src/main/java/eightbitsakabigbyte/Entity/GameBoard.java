@@ -56,6 +56,7 @@ public class GameBoard {
         }
     }
 
+
     public GamePiece[][] getGameBoard() {
         return gameBoard;
     }

@@ -5,7 +5,7 @@ import eightbitsakabigbyte.Entity.GamePiece;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by anthonypajerowski on 3/8/17.
+ * Created by gillianreynolds-titko on 3/8/17.
  */
 
 @Service("gameService")
@@ -20,7 +20,8 @@ public class GameService {
         emptyPiece.setIdentifier(-1);
     }
 
-    //Instantiate one piece for the MVP
+
+    //Instantiate one piece at [0][1] (upper left corner) for the MVP
     public GameBoard MVPboard(){
         for (int row = 0; row < board.getGameBoard().length; row++ ) {
             for (int column = 0; column < board.getGameBoard().length; column++) {
@@ -34,6 +35,7 @@ public class GameService {
     public GameBoard redrawGameBoard() {
         return null;
     }
+<<<<<<< HEAD
 
 
     //Create a method to redraw the board once moves are made
@@ -55,15 +57,55 @@ public class GameService {
         }
         return board;
     }
+=======
+>>>>>>> apilayer
 
     public int removePiece() {
         return -1;
     }
 
+<<<<<<< HEAD
     public boolean legalMove() {
         return true;
     }
 
+=======
+
+    public GameBoard redrawGameBoard(GamePiece gamePiece, int[][] moveFrom, int[][] moveTo){
+
+        return null;
+    }
+
+    //Create a method to redraw the board once moves are made
+    public GameBoard movePiece(MoveRequest request) {
+
+        for (int i = 0; i < board.getGameBoard().length; i++) {
+            for (int j = 0; j < board.getGameBoard().length; j++) {
+                if (board.getGameBoard()[i][j].getIdentifier() == request.getId()){
+                    board.getGameBoard()[i][j] = emptyPiece;
+                }
+                if (request.getId() < 13) {
+                    replacePiece = new GamePiece("red");
+                    replacePiece.setIdentifier(request.getId());
+                    board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+                } else replacePiece = new GamePiece("black");
+                replacePiece.setIdentifier(request.getId());
+                board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+            }
+        }
+        return board;
+    }
+
+
+        public int removePiece() {
+            return -1;
+        }
+
+    public boolean legalMove() {
+        return true;
+    }
+
+>>>>>>> apilayer
     public GameBoard getBoard() {
         return board;
     }

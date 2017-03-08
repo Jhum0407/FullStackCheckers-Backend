@@ -13,19 +13,23 @@ public class GamePiece {
         this.color = color;
     }
 
+
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
+
         this.color = color;
     }
 
     public boolean isKing() {
+
         return isKing;
     }
 
     public void setKing(boolean king) {
+
         isKing = king;
     }
 
@@ -34,6 +38,7 @@ public class GamePiece {
     }
 
     public void setIdentifier(int identifier) {
+
         this.identifier = identifier;
     }
 }

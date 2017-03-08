@@ -40,7 +40,6 @@ public class GameBoardTest {
         int actual = 0;
         for(int i = 0; i<board.getGameBoard().length; i++){
             for(int j =0; j< board.getGameBoard().length; j++){
-                System.out.println(board.getGameBoard()[0][1].getIdentifier());
                 actual=actual + 1;
             }
         } assertEquals(expected, actual);
@@ -56,7 +55,7 @@ public class GameBoardTest {
 
     @Test
     public void onePieceIncorrectLocationTest(){
-        String expected = "red";
+        String expected = "black";
         String actual = board2.getGameBoard()[0][3].getColor();
         assertNotEquals(expected, actual);
     }
