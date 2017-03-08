@@ -53,20 +53,5 @@ public class GameBoard {
         }
     }
 
-    //Instantiate one piece for the MVP
-    public GameBoard(GamePiece gamePiece){
-        for (int row = 0; row < gameBoard.length; row++ ) {
-            for (int column = 0; column < gameBoard.length; column++) {
-                gameBoard[row][column] = emptyPiece;
-            }
-        }
-        gameBoard[0][1] = blackPiece;
-    }
-
-    //Create a method to redraw the board once moves are made
-    public GameBoard redrawGameBoard(){
-        return null;
-    }
-
 }
 

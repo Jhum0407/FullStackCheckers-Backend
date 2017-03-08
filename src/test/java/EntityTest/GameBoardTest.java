@@ -21,7 +21,6 @@ public class GameBoardTest {
     public void setUp(){
         board = new GameBoard();
         gamePiece = new GamePiece("red");
-        board2 = new GameBoard(gamePiece);
     }
 
     @Test
