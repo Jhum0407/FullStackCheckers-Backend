@@ -1,13 +1,13 @@
 package eightbitsakabigbyte.Controller;
 
 import eightbitsakabigbyte.Entity.GameBoard;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import eightbitsakabigbyte.Entity.GamePiece;
+import eightbitsakabigbyte.Service.GameService;
+import eightbitsakabigbyte.Service.MoveRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
-
-import java.util.Collection;
 
 /**
  * Created by gillianreynolds-titko on 3/7/17.
@@ -17,14 +17,29 @@ import java.util.Collection;
 @RequestMapping("/board")
 public class GameController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public GameBoard getAllPieces(){
-        return null;
+    @Autowired
+    private GameService gameService = new GameService();
+    private GameBoard board = new GameBoard();
+    private GameToJSON json = new GameToJSON();
+
+//    @RequestMapping(method = RequestMethod.GET)
+//    public GamePiece[][] getAllPieces(){
+//        return board.gameBoard;
+//    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String sendGameBoard(){
+        return json.convertBoardToJson(board);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateGameBoard(@RequestBody GameBoard board){
+//    @RequestMapping(value = "/mvp", method = RequestMethod.POST)
+//    public String sendMVPGameBoard() {
+//        return json.convertBoardToJson(gameService);
+//    }
 
+    @RequestMapping(value = "/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean getMoveRequest(@RequestBody MoveRequest request){
+        System.out.println(request.toString());
+        return true;
     }
-
 }
