@@ -38,10 +38,11 @@ public class GameController {
 
     //Post the mvp board with one checker in position [0][1]
     @RequestMapping(method = RequestMethod.POST)
-    public String sendGameBoard(){
+    public GamePiece[][] sendGameBoard(){
         mvpBoard = gameService.MVPboard();
         System.out.println(board.toString());
-        return jsonConverter.convertBoardToJson(mvpBoard);
+        return board.getGameBoard();
+//       return jsonConverter.convertBoardToJson(mvpBoard);
     }
 
     //Give back an updated state of the game board

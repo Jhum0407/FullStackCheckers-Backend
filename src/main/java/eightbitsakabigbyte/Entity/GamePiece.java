@@ -23,12 +23,12 @@ public class GamePiece {
         this.color = color;
     }
 
-    public boolean isKing() {
+    public boolean getIsKing() {
 
         return isKing;
     }
 
-    public void setKing(boolean king) {
+    public void setIsKing(boolean king) {
 
         isKing = king;
     }
