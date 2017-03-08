@@ -14,10 +14,6 @@ import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
-/**
- * Created by gillianreynolds-titko on 3/7/17.
- */
-
 @RestController
 @RequestMapping("/board")
 public class GameController {

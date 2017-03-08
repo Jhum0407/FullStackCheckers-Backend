@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  * Created by gillianreynolds-titko on 3/8/17.
  */
 
-@Service("gameService")
+@Service("mysql")
 public class GameService {
 
     private GameBoard board = new GameBoard();

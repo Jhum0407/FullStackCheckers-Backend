@@ -1,12 +1,25 @@
 package eightbitsakabigbyte.Entity;
 
-import sun.plugin2.message.GetAppletMessage;
-
-/**
- * Created by gillianreynolds-titko on 3/7/17.
- */
-
 public class GameBoard {
+
+    private int id;
+    private String player;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
 
     private GamePiece[][] gameBoard = new GamePiece[8][8];
 
