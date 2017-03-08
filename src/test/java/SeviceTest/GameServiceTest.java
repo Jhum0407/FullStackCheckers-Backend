@@ -25,10 +25,10 @@ public class GameServiceTest {
     }
 
     @Test
-    public void getGameBoardMVPTest(){
+    public void MVPboardTest(){
             String expected = "redColor";
             board.getGameBoard()[0][1] = piece;
-            GameBoard returnedBoard = gameService.getGameBoardMVP(piece);
+            GameBoard returnedBoard = gameService.MVPboard();
             String actual = returnedBoard.getGameBoard()[0][1].getColor();
             assertEquals(expected, actual);
     }

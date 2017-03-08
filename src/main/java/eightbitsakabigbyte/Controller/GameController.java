@@ -23,22 +23,24 @@ import org.springframework.http.MediaType;
 public class GameController {
 
     @Autowired
-    private GameService gameService;
+    private GameService gameService = new GameService();
     JsonConverter jsonConverter = new JsonConverter();
-    GameBoard board = new GameBoard();
+    private GameBoard board = new GameBoard();
     GameBoard mvpBoard = new GameBoard();
     GamePiece gamePiece = new GamePiece("emptyPiece");
+    private GameToJSON json = new GameToJSON();
 
     //Get a current state of the game board
-    @RequestMapping(method = RequestMethod.POST)
-    public String getAllPieces(){
-        return jsonConverter.convertBoardToJson(board);
-    }
+//    @RequestMapping(method = RequestMethod.POST)
+//    public String getAllPieces(){
+//        return jsonConverter.convertBoardToJson(board);
+//    }
 
     //Post the mvp board with one checker in position [0][1]
-    @RequestMapping(value = "/mvp", method = RequestMethod.POST)
-    public String getMvpBoard(){
-        mvpBoard = gameService.getGameBoardMVP(gamePiece);
+    @RequestMapping(method = RequestMethod.POST)
+    public String sendGameBoard(){
+        mvpBoard = gameService.MVPboard();
+        System.out.println(board.toString());
         return jsonConverter.convertBoardToJson(mvpBoard);
     }
 

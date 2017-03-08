@@ -65,10 +65,15 @@ public class GameBoard {
         this.gameBoard = gameBoard;
     }
 
-    public String toString(){
-        return null;
+    public String toString() {
+        String visualize = "";
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard.length; j++) {
+                visualize += gameBoard[i][j].getColor() + "  " +  gameBoard[i][j].getIdentifier() + "  " + gameBoard[i][j].isKing() + "\n";
+            }
+        }
+        return visualize;
     }
-
 
 }
 
