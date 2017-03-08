@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 @Service("gameService")
 public class GameService {
 
-    private GameBoard board;
+    private GameBoard board = new GameBoard();
     private GamePiece emptyPiece;
+    private GamePiece replacePiece;
+    private MoveRequest move = new MoveRequest();
     {
         emptyPiece = new GamePiece("empty");
         emptyPiece.setIdentifier(-1);
@@ -29,12 +31,60 @@ public class GameService {
         return board;
     }
 
-    //Create a method to redraw the board once moves are made
-    public GameBoard redrawGameBoard(MoveRequest request){
-
-
+    public GameBoard redrawGameBoard() {
         return null;
     }
 
-//    public void getMoveRequest()
+
+    //Create a method to redraw the board once moves are made
+    public GameBoard movePiece(MoveRequest request) {
+
+        for (int i = 0; i < board.getGameBoard().length; i++) {
+            for (int j = 0; j < board.getGameBoard().length; j++) {
+                if (board.getGameBoard()[i][j].getIdentifier() == request.getId()){
+                    board.getGameBoard()[i][j] = emptyPiece;
+                }
+                if (request.getId() < 13) {
+                    replacePiece = new GamePiece("red");
+                    replacePiece.setIdentifier(request.getId());
+                    board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+                } else replacePiece = new GamePiece("black");
+                replacePiece.setIdentifier(request.getId());
+                board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+            }
+        }
+        return board;
+    }
+
+    public int removePiece() {
+        return -1;
+    }
+
+    public boolean legalMove() {
+        return true;
+    }
+
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
+
+    public GamePiece getEmptyPiece() {
+        return emptyPiece;
+    }
+
+    public void setEmptyPiece(GamePiece emptyPiece) {
+        this.emptyPiece = emptyPiece;
+    }
+
+    public MoveRequest getMove() {
+        return move;
+    }
+
+    public void setMove(MoveRequest move) {
+        this.move = move;
+    }
 }
