@@ -1,4 +1,4 @@
-package eightbitsakabigbyte.Service;
+package eightbitsakabigbyte.Entity;
 
 /**
  * Created by anthonypajerowski on 3/8/17.

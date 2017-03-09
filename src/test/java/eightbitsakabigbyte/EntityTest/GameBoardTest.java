@@ -1,4 +1,4 @@
-package EntityTest;
+package eightbitsakabigbyte.EntityTest;
 
 import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Entity.GamePiece;
@@ -50,6 +50,7 @@ public class GameBoardTest {
         String expected = "red";
         board2.getGameBoard()[0][1] = gamePiece;
         String actual = gamePiece.getColor();
+        System.out.println(board2.toString());
         assertEquals(expected, actual);
     }
 

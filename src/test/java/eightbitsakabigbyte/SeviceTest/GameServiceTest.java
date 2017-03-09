@@ -2,7 +2,7 @@ package Service;
 
 import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Service.GameService;
-import eightbitsakabigbyte.Service.MoveRequest;
+import eightbitsakabigbyte.Entity.MoveRequest;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

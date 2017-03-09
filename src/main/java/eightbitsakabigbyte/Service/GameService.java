@@ -2,13 +2,14 @@ package eightbitsakabigbyte.Service;
 
 import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Entity.GamePiece;
+import eightbitsakabigbyte.Entity.MoveRequest;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by gillianreynolds-titko on 3/8/17.
  */
 
-@Service("mysql")
+@Service
 public class GameService {
 
     private GameBoard board = new GameBoard();
@@ -53,9 +54,13 @@ public class GameService {
                     replacePiece = new GamePiece("red");
                     replacePiece.setIdentifier(request.getId());
                     board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+                    replacePiece.setRow(request.getRow());
+                    replacePiece.setColumn(request.getColumn());
                 } else replacePiece = new GamePiece("black");
                 replacePiece.setIdentifier(request.getId());
                 board.getGameBoard()[request.getRow()][request.getColumn()] = replacePiece;
+                replacePiece.setRow(request.getRow());
+                replacePiece.setColumn(request.getColumn());
             }
         }
         return board;
