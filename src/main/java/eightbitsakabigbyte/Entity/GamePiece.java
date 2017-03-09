@@ -8,6 +8,24 @@ public class GamePiece {
     private String color = "";
     private boolean isKing = false;
     private int identifier = 0;
+    private int row = -1;
+    private int column = -1;
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
 
     public GamePiece(String color){
         this.color = color;
@@ -23,12 +41,12 @@ public class GamePiece {
         this.color = color;
     }
 
-    public boolean isKing() {
+    public boolean getIsKing() {
 
         return isKing;
     }
 
-    public void setKing(boolean king) {
+    public void setIsKing(boolean king) {
 
         isKing = king;
     }

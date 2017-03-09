@@ -1,12 +1,25 @@
 package eightbitsakabigbyte.Entity;
 
-import sun.plugin2.message.GetAppletMessage;
-
-/**
- * Created by gillianreynolds-titko on 3/7/17.
- */
-
 public class GameBoard {
+
+    private int id;
+    private String player;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
 
     private GamePiece[][] gameBoard = new GamePiece[8][8];
 
@@ -24,10 +37,14 @@ public class GameBoard {
                 if(column % 2 != 0 && row %2 == 0){
                     gameBoard[row][column] = new GamePiece("red");
                     gameBoard[row][column].setIdentifier(counter);
+                    gameBoard[row][column].setRow(row);
+                    gameBoard[row][column].setColumn(column);
                     counter++;
                 } if(row == 1 && column %2 == 0){
                     gameBoard[row][column] = new GamePiece("red");
                     gameBoard[row][column].setIdentifier(counter);
+                    gameBoard[row][column].setRow(row);
+                    gameBoard[row][column].setColumn(column);
                     counter++;
                 }
             }
@@ -38,10 +55,14 @@ public class GameBoard {
                 if(column % 2 == 0 && row %2 != 0){
                     gameBoard[row][column] = new GamePiece("black");
                     gameBoard[row][column].setIdentifier(counter);
+                    gameBoard[row][column].setRow(row);
+                    gameBoard[row][column].setColumn(column);
                     counter++;
                 } if(row == 6 && column %2 !=0){
                     gameBoard[row][column] = new GamePiece("black");
                     gameBoard[row][column].setIdentifier(counter);
+                    gameBoard[row][column].setRow(row);
+                    gameBoard[row][column].setColumn(column);
                     counter++;
                 }
             }
@@ -69,7 +90,7 @@ public class GameBoard {
         String visualize = "";
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
-                visualize += gameBoard[i][j].getColor() + "  " +  gameBoard[i][j].getIdentifier() + "  " + gameBoard[i][j].isKing() + "\n";
+                visualize += gameBoard[i][j].getColor() + "  " +  gameBoard[i][j].getIdentifier() + "  " + gameBoard[i][j].getIsKing() + "  " + gameBoard[i][j].getRow() + "  " + gameBoard[i][j].getColumn() + "\n";
             }
         }
         return visualize;
