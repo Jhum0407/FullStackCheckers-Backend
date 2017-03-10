@@ -14,11 +14,7 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
-    JsonConverter jsonConverter = new JsonConverter();
     private GameBoard board = new GameBoard();
-    GameBoard mvpBoard = new GameBoard();
-    GamePiece gamePiece = new GamePiece("emptyPiece");
-    private GameToJSON json = new GameToJSON();
 
 
     //Get a current state of the game board
@@ -31,7 +27,7 @@ public class GameController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public GamePiece[][] sendGameBoard() {
-        mvpBoard = gameService.MVPboard();
+       // mvpBoard = gameService.MVPboard();
         System.out.println(board.toString());
         return board.getGameBoard();
 //       return jsonConverter.convertBoardToJson(mvpBoard);

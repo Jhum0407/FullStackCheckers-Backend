@@ -25,40 +25,40 @@ public class GameBoard {
     int counter;
     //Instantiate a starting board
     public GameBoard() {
-        for(int row = 0; row < 3; row++){
-            for(int column=0; column<gameBoard.length; column++){
-                if(column % 2 != 0 && row %2 == 0){
-                    gameBoard[row][column] = new GamePiece();
-                    gameBoard[row][column].setIdentifier(counter);
-                    gameBoard[row][column].setRow(row);
-                    gameBoard[row][column].setColumn(column);
-                    counter++;
-                } if(row == 1 && column %2 == 0){
-                    gameBoard[row][column] = new GamePiece();
-                    gameBoard[row][column].setIdentifier(counter);
-                    gameBoard[row][column].setRow(row);
-                    gameBoard[row][column].setColumn(column);
-                    counter++;
-                }
-            }
-        }
-        for(int row = 5; row < gameBoard.length; row++){
-            for(int column=0; column<gameBoard.length; column++){
-                if(column % 2 == 0 && row %2 != 0){
-                    gameBoard[row][column] = new GamePiece();
-                    gameBoard[row][column].setIdentifier(counter);
-                    gameBoard[row][column].setRow(row);
-                    gameBoard[row][column].setColumn(column);
-                    counter++;
-                } if(row == 6 && column %2 !=0){
-                    gameBoard[row][column] = new GamePiece();
-                    gameBoard[row][column].setIdentifier(counter);
-                    gameBoard[row][column].setRow(row);
-                    gameBoard[row][column].setColumn(column);
-                    counter++;
-                }
-            }
-        }
+//        for(int row = 0; row < 3; row++){
+//            for(int column=0; column<gameBoard.length; column++){
+//                if(column % 2 != 0 && row %2 == 0){
+//                    gameBoard[row][column] = new GamePiece();
+//                    gameBoard[row][column].setIdentifier(counter);
+//                    gameBoard[row][column].setRow(row);
+//                    gameBoard[row][column].setColumn(column);
+//                    counter++;
+//                } if(row == 1 && column %2 == 0){
+//                    gameBoard[row][column] = new GamePiece();
+//                    gameBoard[row][column].setIdentifier(counter);
+//                    gameBoard[row][column].setRow(row);
+//                    gameBoard[row][column].setColumn(column);
+//                    counter++;
+//                }
+//            }
+//        }
+//        for(int row = 5; row < gameBoard.length; row++){
+//            for(int column=0; column<gameBoard.length; column++){
+//                if(column % 2 == 0 && row %2 != 0){
+//                    gameBoard[row][column] = new GamePiece();
+//                    gameBoard[row][column].setIdentifier(counter);
+//                    gameBoard[row][column].setRow(row);
+//                    gameBoard[row][column].setColumn(column);
+//                    counter++;
+//                } if(row == 6 && column %2 !=0){
+//                    gameBoard[row][column] = new GamePiece();
+//                    gameBoard[row][column].setIdentifier(counter);
+//                    gameBoard[row][column].setRow(row);
+//                    gameBoard[row][column].setColumn(column);
+//                    counter++;
+//                }
+//            }
+//        }
     }
 
 

@@ -8,14 +8,11 @@ import java.util.ArrayList;
 public class GamePieces {
     private ArrayList<GamePiece> currentPieces = new ArrayList<GamePiece>();
     private int pieceCounter = 1;
-    private int rowSize = 8;
-    private int columnSize = 8;
+    private GamePiece gamePiece = new GamePiece();
 
-    GamePiece gamePiece = new GamePiece();
-
-    GamePieces() {
+    public void createGamePieces() {
         for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < columnSize; column++) {
+            for (int column = 0; column < 8; column++) {
                 if (column % 2 != 0 && row % 2 == 0) {
                     GamePiece piece = new GamePiece();
                     piece.setColumn(column);
@@ -37,7 +34,7 @@ public class GamePieces {
             }
         }
         for (int row = 5; row < 8; row++) {
-            for (int column = 0; column < columnSize; column++) {
+            for (int column = 0; column < 8; column++) {
                 if (column % 2 == 0 && row % 2 != 0) {
                     GamePiece piece = new GamePiece();
                     piece.setColumn(column);
@@ -58,5 +55,16 @@ public class GamePieces {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for ( int i = 0; i < currentPieces.size(); i++) {
+            sb.append(currentPieces.get(i).getIdentifier() + " " +  currentPieces.get(i).getRow() + " "
+                    + currentPieces.get(i).getColumn() + " " + currentPieces.get(i).getIsKing() + "\n");
+        }
+        return sb.toString();
+
     }
 }
