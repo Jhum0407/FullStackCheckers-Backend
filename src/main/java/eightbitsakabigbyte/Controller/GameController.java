@@ -1,6 +1,5 @@
 package eightbitsakabigbyte.Controller;
 
-import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,10 @@ import org.springframework.http.MediaType;
 @RequestMapping("/board")
 public class GameController {
 
-    @Autowired
-    private GameService gameService;
-    private GameBoard board = new GameBoard();
-
+//    @Autowired
+//    private GameService gameService;
+//    private GameBoard board = new GameBoard();
+//
 
     //Get a current state of the game board
 //    @RequestMapping(method = RequestMethod.POST)
@@ -24,14 +23,14 @@ public class GameController {
 //    }
 
     //Post the mvp board with one checker in position [0][1]
-    @CrossOrigin
-    @RequestMapping(method = RequestMethod.GET)
-    public GamePiece[][] sendGameBoard() {
-       // mvpBoard = gameService.MVPboard();
-        System.out.println(board.toString());
-        return board.getGameBoard();
-//       return jsonConverter.convertBoardToJson(mvpBoard);
-    }
+//    @CrossOrigin
+//    @RequestMapping(method = RequestMethod.GET)
+//    public GamePiece[][] sendGameBoard() {
+//       // mvpBoard = gameService.MVPboard();
+//        System.out.println(board.toString());
+//        return board.getGameBoard();
+////       return jsonConverter.convertBoardToJson(mvpBoard);
+//    }
 
 //    @RequestMapping(value = "/movestatus", method = RequestMethod.POST)
 //    public boolean isLegal(@RequestBody Boolean boolan){

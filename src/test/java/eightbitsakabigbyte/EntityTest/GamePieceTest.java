@@ -6,11 +6,11 @@ import org.junit.Before;
 public class GamePieceTest {
     GamePiece gamePiece;
 
-    @Before
-    public void setUp(){
-        gamePiece = new GamePiece();
-    }
-
-
+//    @Before
+//    public void setUp(){
+//        gamePiece = new GamePiece();
+//    }
+//
+//
 
 }

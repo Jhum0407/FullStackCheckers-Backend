@@ -1,78 +1,75 @@
-package eightbitsakabigbyte.Dao;
-
-import eightbitsakabigbyte.Entity.GameBoard;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-
-@Repository("mysql")
-public class MySqlGameDaoImpl implements GameDao {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    private static class GameBoardRowMapper implements RowMapper<GameBoard> {
-
-        @Override
-        public GameBoard mapRow(ResultSet resultSet, int i) throws SQLException {
-            GameBoard gameBoard = new GameBoard();
-            gameBoard.setId(resultSet.getInt("id"));
-            gameBoard.setPlayer(resultSet.getString("player"));
-            // gameBoard.setGameState(resultSet.getString("row1"));
-            return gameBoard;
-
-//            @Override
-//            public Student mapRow(ResultSet resultSet, int i) throws SQLException {
-//                Student student = new Student();
-//                student.setId(resultSet.getInt("id"));
-//                student.setName(resultSet.getString("name"));
-//                student.setCourse(resultSet.getString("course"));
-//                return student;
-        }
-    }
-
-
-
-    @Override
-    public GameBoard getGameBoardById(int id) {
-        // SELECT column_name(s) FROM table_name where column = value
-        final String sql = "SELECT id, player FROM checkersGames where id = ?";
-        GameBoard gameBoard = jdbcTemplate.queryForObject(sql, new GameBoardRowMapper(), id);
-        System.out.println(gameBoard);
-        return gameBoard;
-    }
-
-//    @Override
-//    public Account getAccountById(int id) {
-//        // SELECT column_name(s) FROM table_name where column = value
-//        final String sql = "SELECT id, accountType, balance, interestRate, overdraftPenalty, requiredMB, firstName, lastName FROM account where id = ?";
-//        Account account = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), id);
-//        return account;
+//package eightbitsakabigbyte.Dao;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.stereotype.Repository;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//
+//@Repository("mysql")
+//public class MySqlGameDaoImpl implements GameDao {
+//
+//    @Autowired
+//    private JdbcTemplate jdbcTemplate;
+//
+//    private static class GameBoardRowMapper implements RowMapper<GameBoard> {
+//
+//        @Override
+//        public GameBoard mapRow(ResultSet resultSet, int i) throws SQLException {
+//            GameBoard gameBoard = new GameBoard();
+//            gameBoard.setId(resultSet.getInt("id"));
+//            gameBoard.setPlayer(resultSet.getString("player"));
+//            // gameBoard.setGameState(resultSet.getString("row1"));
+//            return gameBoard;
+//
+////            @Override
+////            public Student mapRow(ResultSet resultSet, int i) throws SQLException {
+////                Student student = new Student();
+////                student.setId(resultSet.getInt("id"));
+////                student.setName(resultSet.getString("name"));
+////                student.setCourse(resultSet.getString("course"));
+////                return student;
+//        }
 //    }
-
-
-
-    @Override
-    public void removeGameBoardById(int id) {
-
-    }
-
-    @Override
-    public void updateGameBoard(GameBoard gameBoard) {
-
-    }
-
-    @Override
-    public void insertGameBoardToDb(GameBoard gameBoard) {
-
-    }
-
-}
+//
+//
+//
+//    @Override
+//    public GameBoard getGameBoardById(int id) {
+//        // SELECT column_name(s) FROM table_name where column = value
+//        final String sql = "SELECT id, player FROM checkersGames where id = ?";
+//        GameBoard gameBoard = jdbcTemplate.queryForObject(sql, new GameBoardRowMapper(), id);
+//        System.out.println(gameBoard);
+//        return gameBoard;
+//    }
+//
+////    @Override
+////    public Account getAccountById(int id) {
+////        // SELECT column_name(s) FROM table_name where column = value
+////        final String sql = "SELECT id, accountType, balance, interestRate, overdraftPenalty, requiredMB, firstName, lastName FROM account where id = ?";
+////        Account account = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), id);
+////        return account;
+////    }
+//
+//
+//
+//    @Override
+//    public void removeGameBoardById(int id) {
+//
+//    }
+//
+//    @Override
+//    public void updateGameBoard(GameBoard gameBoard) {
+//
+//    }
+//
+//    @Override
+//    public void insertGameBoardToDb(GameBoard gameBoard) {
+//
+//    }
+//
+//}
 //    @Override
 //    public Collection<Account> getAllAccounts() {
 //        // SELECT column_name(s) FROM table_name

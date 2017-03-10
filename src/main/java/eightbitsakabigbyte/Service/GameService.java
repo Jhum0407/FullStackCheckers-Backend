@@ -1,8 +1,5 @@
 package eightbitsakabigbyte.Service;
 
-import eightbitsakabigbyte.Entity.GameBoard;
-import eightbitsakabigbyte.Entity.GamePiece;
-import eightbitsakabigbyte.Entity.MoveRequest;
 import org.springframework.stereotype.Service;
 
 @Service
