@@ -1,14 +1,18 @@
 package eightbitsakabigbyte.AILogic;
 
+import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Entity.GamePiece;
+import eightbitsakabigbyte.Service.GameService;
 
 import java.util.ArrayList;
 
 public class PieceMovement {
+    public GameService gameService = new GameService();
     public byte moveCounter;
     public byte highestCounter;
     public ArrayList<GamePiece> bestMoveStart = new ArrayList<>();
     public ArrayList<GamePiece> bestMoveEnd = new ArrayList<>();
+    public GameBoard board = gameService.getBoard();
 
     protected final byte multiJump = 4;
     protected final byte singleJump = 3;
@@ -27,11 +31,13 @@ public class PieceMovement {
     protected final byte normalPieceBonus = 2;
 
 
-    public GamePiece moveChoice(){return null;}
+    public GamePiece moveChoice(){
+
+    }
 
 
     protected boolean checkUpperLeft(GamePiece piece){
-
+        if(piece != )
     }
 
     protected boolean checkUpperRight(GamePiece piece){return false;}
