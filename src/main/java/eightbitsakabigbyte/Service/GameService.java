@@ -5,10 +5,6 @@ import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.MoveRequest;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by gillianreynolds-titko on 3/8/17.
- */
-
 @Service
 public class GameService {
 

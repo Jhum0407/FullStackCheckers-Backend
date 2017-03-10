@@ -8,7 +8,7 @@ public class GamePieceTest {
 
     @Before
     public void setUp(){
-        gamePiece = new GamePiece("red");
+        gamePiece = new GamePiece();
     }
 
 

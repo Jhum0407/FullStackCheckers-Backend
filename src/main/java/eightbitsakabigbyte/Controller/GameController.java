@@ -30,7 +30,7 @@ public class GameController {
     //Post the mvp board with one checker in position [0][1]
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
-    public GamePiece[][] sendGameBoard(){
+    public GamePiece[][] sendGameBoard() {
         mvpBoard = gameService.MVPboard();
         System.out.println(board.toString());
         return board.getGameBoard();
@@ -45,7 +45,7 @@ public class GameController {
     //Give back an updated state of the game board
     @CrossOrigin
     @RequestMapping(value = "/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean getMoveRequest(@RequestBody MoveRequest request){
+    public boolean getMoveRequest(@RequestBody MoveRequest request) {
         System.out.println(request.toString());
 //        gameService.movePiece();
         return true;
