@@ -2,17 +2,16 @@ package eightbitsakabigbyte.AILogic;
 
 import eightbitsakabigbyte.Entity.GameBoard;
 import eightbitsakabigbyte.Entity.GamePiece;
-import eightbitsakabigbyte.Service.GameService;
 
 import java.util.ArrayList;
 
 public class PieceMovement {
-    public GameService gameService = new GameService();
+    //public GameService gameService = new GameService();
     public byte moveCounter;
     public byte highestCounter;
     public ArrayList<GamePiece> bestMoveStart = new ArrayList<>();
     public ArrayList<GamePiece> bestMoveEnd = new ArrayList<>();
-    public GameBoard board = gameService.getBoard();
+    public GameBoard board = new GameBoard();
 
     protected final byte multiJump = 4;
     protected final byte singleJump = 3;
@@ -32,24 +31,91 @@ public class PieceMovement {
 
 
     public GamePiece moveChoice(){
+        return null;
+    }
 
+    public void makeMove(GamePiece piece, GamePiece space){
+        if(space.getIdentifier() == 0 && piece.getIdentifier() > 0 && piece.getIdentifier() < 13){
+            space = piece;
+            piece = new GamePiece("");
+        }
+    }
+
+    public void removePiece(GamePiece piece){
+        piece = new GamePiece("");
+    }
+
+    protected int checkSpace(GamePiece space){
+        if(space.getIdentifier() > 12){
+            return 2;
+        } else if(space.getIdentifier() > 0){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    //returning 1 for friendly, 0 for nothing, 2 for enemy, -1 does not exist
+    //refactor to one method using new parameter direction
+    protected int checkUpperLeft(GamePiece piece){
+        if(piece.getRow() != 0 && piece.getColumn() != 0) {
+            GamePiece space = board.getGamePieceFromBoard(piece.getRow() - 1, piece.getColumn() - 1);
+            return checkSpace(space);
+        } else {
+            return -1;
+        }
+    }
+
+    protected int checkUpperRight(GamePiece piece){
+        if(piece.getRow() != 0 && piece.getColumn() != 7){
+            GamePiece space = board.getGamePieceFromBoard(piece.getRow() - 1, piece.getColumn() + 1);
+            return checkSpace(space);
+        } else {
+            return -1;
+        }
+    }
+
+    protected int checkLowerLeft(GamePiece piece){
+        if(piece.getRow() != 7 && piece.getColumn() != 0){
+            GamePiece space = board.getGamePieceFromBoard(piece.getRow() + 1, piece.getColumn() - 1);
+            return checkSpace(space);
+        } else {
+            return -1;
+        }
+    }
+
+    protected int checkLowerRight(GamePiece piece){
+        if(piece.getRow() != 7 && piece.getColumn() != 7){
+            GamePiece space = board.getGamePieceFromBoard(piece.getRow() + 1, piece.getColumn() + 1);
+            return checkSpace(space);
+        } else {
+            return -1;
+        }
     }
 
 
-    protected boolean checkUpperLeft(GamePiece piece){
-        if(piece != )
+    protected void checkAvailableJump(GamePiece piece){
+        if(checkLowerRight(piece) == 2){
+            if(checkLowerRight(board.getGamePieceFromBoard((piece.getRow() + 1), (piece.getColumn() + 1))) == 0){
+                makeMove(piece, board.getGamePieceFromBoard((piece.getRow() + 2), (piece.getColumn() + 2)));
+                removePiece(board.getGamePieceFromBoard((piece.getRow() + 1), (piece.getColumn() + 1)));
+            }
+        }
+        if (checkLowerLeft(piece) == 2) {
+            if(checkLowerLeft(board.getGamePieceFromBoard((piece.getRow() + 1), (piece.getColumn() - 1))) == 0){
+                makeMove(piece, board.getGamePieceFromBoard((piece.getRow() + 2), (piece.getColumn() - 2)));
+                removePiece(board.getGamePieceFromBoard((piece.getRow() + 1), (piece.getColumn() - 1)));
+            }
+        }
     }
 
-    protected boolean checkUpperRight(GamePiece piece){return false;}
-
-    protected boolean checkLowerLeft(GamePiece piece){return false;}
-
-    protected boolean checkLowerRight(GamePiece piece){return false;}
-
-
-    protected boolean checkAvailableJump(GamePiece piece){return false;}
-
-    protected boolean checkForMoves(GamePiece piece){return false;}
+    protected boolean checkForMoves(GamePiece piece){
+        if(checkLowerLeft(piece) == 0 || checkLowerRight(piece) == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     protected void determineValueOfMove(GamePiece piece, GamePiece move){}
 
@@ -73,9 +139,5 @@ public class PieceMovement {
     protected void isGettingKing(GamePiece piece, GamePiece move){}
 
     protected void isBlockingOwnJump(GamePiece piece, GamePiece move){}
-
-
-
-
 
 }

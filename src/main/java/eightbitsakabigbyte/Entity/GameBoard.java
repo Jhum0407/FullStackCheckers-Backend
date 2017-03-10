@@ -82,6 +82,10 @@ public class GameBoard {
         return gameBoard;
     }
 
+    public GamePiece getGamePieceFromBoard(int row, int column){
+        return gameBoard[row][column];
+    }
+
     public void setGameBoard(GamePiece[][] gameBoard) {
         this.gameBoard = gameBoard;
     }
