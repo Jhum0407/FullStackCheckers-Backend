@@ -11,6 +11,13 @@ public class GamePiece {
     private int row = -1;
     private int column = -1;
 
+    public GamePiece(boolean isKing, int identifier, int row, int column) {
+        this.isKing = isKing;
+        this.identifier = identifier;
+        this.row = row;
+        this.column = column;
+    }
+
     public int getRow() {
         return row;
     }
