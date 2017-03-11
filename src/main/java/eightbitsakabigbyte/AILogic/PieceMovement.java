@@ -179,7 +179,7 @@ public class PieceMovement {
     }
 
     protected void isJumpOnNextTurn(GamePiece piece, int row, int column){
-        
+
     }
 
     protected void isTwoInARow(GamePiece piece, GamePiece move){}
