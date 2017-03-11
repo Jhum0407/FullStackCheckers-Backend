@@ -50,6 +50,7 @@ public class PieceMovement {
                 board.remove(i);
             }
         }
+
     }
 
     public Pieces checkSpace(GamePiece space){
@@ -176,6 +177,11 @@ public class PieceMovement {
 
     protected void isMultiJumpOnNextTurn(GamePiece piece, int row, int column){
 
+    }
+
+    public GamePiece makeMove(GamePiece piece, GamePiece space, int row, int column){
+
+        return null;
     }
 
     protected void isJumpOnNextTurn(GamePiece piece, int row, int column){
