@@ -25,6 +25,14 @@ public class MySqlGameDaoImpl implements GameDao {
             gameBoard.setPlayer(resultSet.getString("player"));
             // gameBoard.setGameState(resultSet.getString("row1"));
             return gameBoard;
+
+//            @Override
+//            public Student mapRow(ResultSet resultSet, int i) throws SQLException {
+//                Student student = new Student();
+//                student.setId(resultSet.getInt("id"));
+//                student.setName(resultSet.getString("name"));
+//                student.setCourse(resultSet.getString("course"));
+//                return student;
         }
     }
 
@@ -33,10 +41,21 @@ public class MySqlGameDaoImpl implements GameDao {
     @Override
     public GameBoard getGameBoardById(int id) {
         // SELECT column_name(s) FROM table_name where column = value
-        final String sql = "SELECT id, player FROM account where id = ?";
+        final String sql = "SELECT id, player FROM checkersGames where id = ?";
         GameBoard gameBoard = jdbcTemplate.queryForObject(sql, new GameBoardRowMapper(), id);
+        System.out.println(gameBoard);
         return gameBoard;
     }
+
+//    @Override
+//    public Account getAccountById(int id) {
+//        // SELECT column_name(s) FROM table_name where column = value
+//        final String sql = "SELECT id, accountType, balance, interestRate, overdraftPenalty, requiredMB, firstName, lastName FROM account where id = ?";
+//        Account account = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), id);
+//        return account;
+//    }
+
+
 
     @Override
     public void removeGameBoardById(int id) {
