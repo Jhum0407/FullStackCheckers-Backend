@@ -10,8 +10,9 @@ import static eightbitsakabigbyte.AILogic.Pieces.*;
 public class PieceMovement {
     public GameService gameService = new GameService();
     public byte highestCounter;
-    public ArrayList<GamePiece> bestMoveStart = new ArrayList<>();
-    public ArrayList<GamePiece> bestMoveEnd = new ArrayList<>();
+    public ArrayList<GamePiece> bestMovePiece = new ArrayList<>();
+    public ArrayList<Integer> bestMoveRow = new ArrayList<>();
+    public ArrayList<Integer> bestMoveColumn = new ArrayList<>();
     public ArrayList<GamePiece> board = new ArrayList<>();
 
     protected final byte multiJump = 4;
@@ -20,13 +21,11 @@ public class PieceMovement {
     protected final byte avoidImmediateJump = 2;
     protected final byte movingBackRow = -1;
     protected final byte movingIntoSpaceWillBeJumped = -2;
-    protected final byte avoidExistingMultiJump = 2;
     protected final byte movingIntoSpaceWillBeMultiJumped = 2;
     protected final byte leavingOthersToBeJumped = -2;
     protected final byte settingUpOwnJump = 1;
     protected final byte gettingAKing = 5;
     protected final byte blockOwnJump = -2;
-    protected final byte leavingKingToBeJumped = -1;
     protected final byte twoInARow = 1;
     protected final byte normalPieceBonus = 2;
 
@@ -67,6 +66,14 @@ public class PieceMovement {
             return EMPTY;
         }
     }
+    public GamePiece findPiece(int row, int column){
+        for(int i = 0; i < board.size(); i++){
+            if(board.get(i).getRow() == row && board.get(i).getColumn() == column){
+                return board.get(i);
+            }
+        }
+        return null;
+    }
 
 
     public Pieces checkUpperLeft(GamePiece piece){
@@ -74,6 +81,19 @@ public class PieceMovement {
             for(int i = 0; i < board.size(); i++){
                 GamePiece temp = board.get(i);
                 if(temp.getRow() == piece.getRow() - 1 && temp.getColumn() == piece.getColumn() - 1){
+                    return checkSpace(temp);
+                }
+            }
+        } else {
+            return EMPTY;
+        }
+        return EMPTY;
+    }
+    public Pieces checkUpperLeft(int row, int column){
+        if(row != 0 && column != 0) {
+            for(int i = 0; i < board.size(); i++){
+                GamePiece temp = board.get(i);
+                if(temp.getRow() == row - 1 && temp.getColumn() == column - 1){
                     return checkSpace(temp);
                 }
             }
@@ -96,12 +116,38 @@ public class PieceMovement {
         }
         return EMPTY;
     }
+    public Pieces checkUpperRight(int row, int column){
+        if(row != 0 && column != 7) {
+            for(int i = 0; i < board.size(); i++){
+                GamePiece temp = board.get(i);
+                if(temp.getRow() == row - 1 && temp.getColumn() == column + 1){
+                    return checkSpace(temp);
+                }
+            }
+        } else {
+            return EMPTY;
+        }
+        return EMPTY;
+    }
 
     public Pieces checkLowerLeft(GamePiece piece){
         if(piece.getRow() != 7 && piece.getColumn() != 0) {
             for(int i = 0; i < board.size(); i++){
                 GamePiece temp = board.get(i);
                 if(temp.getRow() == (piece.getRow() + 1) && temp.getColumn() == (piece.getColumn() - 1)){
+                    return checkSpace(temp);
+                }
+            }
+        } else {
+            return EMPTY;
+        }
+        return EMPTY;
+    }
+    public Pieces checkLowerLeft(int row, int column){
+        if(row != 7 && column != 0) {
+            for(int i = 0; i < board.size(); i++){
+                GamePiece temp = board.get(i);
+                if(temp.getRow() == (row + 1) && temp.getColumn() == (column - 1)){
                     return checkSpace(temp);
                 }
             }
@@ -124,6 +170,38 @@ public class PieceMovement {
         }
         return EMPTY;
     }
+    public Pieces checkLowerRight(int row, int column){
+        if(row != 7 && column != 7) {
+            for(int i = 0; i < board.size(); i++){
+                GamePiece temp = board.get(i);
+                if(temp.getRow() == (row + 1) && temp.getColumn() == (column + 1)){
+                    return checkSpace(temp);
+                }
+            }
+        } else {
+            return EMPTY;
+        }
+        return EMPTY;
+    }
+
+//    public Pieces checkPieceInSpace(GamePiece piece){
+//        for(int i = 0; i < board.size(); i++) {
+//            GamePiece temp = board.get(i);
+//            if (temp.getRow() == (piece.getRow()) && temp.getColumn() == (piece.getColumn())) {
+//                return checkSpace(temp);
+//            }
+//        }
+//            return EMPTY;
+//    }
+//    public Pieces checkPieceInSpace(int row, int column){
+//        for(int i = 0; i < board.size(); i++) {
+//            GamePiece temp = board.get(i);
+//            if (temp.getRow() == row && temp.getColumn() == column) {
+//                return checkSpace(temp);
+//            }
+//        }
+//        return EMPTY;
+//    }
 
 
     public void checkAvailableJump(GamePiece piece){
@@ -151,25 +229,58 @@ public class PieceMovement {
 
     public void checkForMoves(GamePiece piece){
         if(checkLowerLeft(piece) == EMPTY) {
-            determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1);
-        } else if(checkLowerRight(piece) == EMPTY) {
-            determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1);
-        } else {
+            byte moveValue = determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1);
+            assignMove(piece, piece.getRow() + 1, piece.getColumn() - 1, moveValue);
+        }
+        if(checkLowerRight(piece) == EMPTY) {
+            byte moveValue = determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1);
+            assignMove(piece, piece.getRow() + 1, piece.getColumn() + 1, moveValue);
+        }
+    }
 
+    public void assignMove(GamePiece piece, int row, int column, byte moveValue){
+        if(moveValue > highestCounter){
+            highestCounter = moveValue;
+            bestMovePiece = new ArrayList<>();
+            bestMovePiece.add(piece);
+            bestMoveColumn = new ArrayList<>();
+            bestMoveColumn.add(column);
+            bestMoveRow = new ArrayList<>();
+            bestMoveRow.add(row);
+        }
+        if(moveValue == highestCounter){
+            bestMovePiece.add(piece);
+            bestMoveColumn.add(column);
+            bestMoveRow.add(row);
         }
     }
 
     public byte determineValueOfMove(GamePiece piece, int row, int column){
         byte moveCounter = 0;
         if(isAvoidJump(piece)){moveCounter += avoidImmediateJump;}
-        if(isMovingIntoJumpOnNextTurn(piece, row, column)){
+        if(isMovingBackRow(piece)){moveCounter += movingBackRow;}
+        if (isLeavingOthersForJump(piece)) {moveCounter += leavingOthersToBeJumped;}
+        int originalRow = piece.getRow();
+        int originalColumn = piece.getColumn();
+        makeMove(piece, row, column);
+        if(isGettingKing(piece)){moveCounter += gettingAKing;}
+        if(isMovingIntoJumpOnNextTurn(piece)){
             moveCounter += movingIntoSpaceWillBeJumped;
-            if(isMovingIntoMultiJumpOnNextTurn(piece, row, column)){
+            if(isMovingIntoMultiJumpOnNextTurn(piece)){
                 moveCounter += movingIntoSpaceWillBeMultiJumped;
             }
         }
+        if(isTwoInARow(piece)){
+            moveCounter += twoInARow;
+            if(isDefendFromImmediateJump(piece)){
+                moveCounter += defendFromImmediateJump;
+            }
+        }
+        if(isSettingUpOwnJump(piece)){moveCounter += settingUpOwnJump;}
+        if(isBlockingOwnJump(piece)){moveCounter += blockOwnJump;}
 
-
+        makeMove(piece, originalRow, originalColumn);
+        return moveCounter;
 
     }
 
@@ -189,36 +300,207 @@ public class PieceMovement {
         return false;
     }
 
-    public boolean isMovingIntoJumpOnNextTurn(GamePiece piece, int row, int column){
-        int originalRow = piece.getRow();
-        int originalColumn = piece.getColumn();
-        makeMove(piece, row, column);
-        if(isAvoidJump(piece)){
-            makeMove(piece, originalRow, originalColumn);
-            return true;
+    public boolean isMovingBackRow(GamePiece piece){
+        return piece.getRow() == 0;
+    }
+
+    public boolean isLeavingOthersForJump(GamePiece piece){
+        if(isTwoInARow(piece)) {
+            if (checkLowerRight(piece) == FRIENDLY_KING || checkLowerRight(piece) == FRIENDLY) {
+                if (isAvoidJump(findPiece(piece.getRow() + 1, piece.getColumn() + 1))) {
+                    return true;
+                }
+                if (checkLowerLeft(piece) == FRIENDLY_KING || checkLowerLeft(piece) == FRIENDLY) {
+                    if (isAvoidJump(findPiece(piece.getRow() + 1, piece.getColumn() - 1))) {
+                        return true;
+                    }
+                }
+                if (checkUpperLeft(piece) == FRIENDLY_KING || checkUpperLeft(piece) == FRIENDLY) {
+                    if (isAvoidJump(findPiece(piece.getRow() - 1, piece.getColumn() - 1))) {
+                        return true;
+                    }
+                }
+                if (checkUpperRight(piece) == FRIENDLY_KING || checkUpperRight(piece) == FRIENDLY) {
+                    if (isAvoidJump(findPiece(piece.getRow() - 1, piece.getColumn() + 1))) {
+                        return true;
+                    }
+                }
+            }
         }
-        makeMove(piece, originalRow, originalColumn);
         return false;
     }
 
-    public boolean isMovingIntoMultiJumpOnNextTurn(GamePiece piece, int row, int column){
-        
+
+
+    public boolean isMovingIntoJumpOnNextTurn(GamePiece piece){
+        if(isAvoidJump(piece)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isMovingIntoMultiJumpOnNextTurn(GamePiece piece){
+        if((checkLowerLeft(piece) == ENEMY || checkLowerLeft(piece) == ENEMY_KING) && checkUpperRight(piece) == EMPTY){
+            if((checkUpperRight(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                    checkUpperRight(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY) &&
+                    checkUpperRight(piece.getRow() - 2, piece.getColumn() + 2) == EMPTY){
+                return true;
+            }
+            if((checkUpperLeft(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                    checkUpperLeft(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY) &&
+                    checkUpperLeft(piece.getRow() - 3, piece.getColumn() - 1) == EMPTY){
+                return true;
+            }
+            if(checkLowerLeft(piece) == ENEMY_KING &&
+                    (checkLowerRight(piece.getRow(), piece.getColumn() + 2) == FRIENDLY_KING ||
+                    checkLowerRight(piece.getRow(), piece.getColumn() + 2) == FRIENDLY) &&
+                    checkLowerRight(piece.getRow() + 1, piece.getColumn() + 3) == EMPTY){
+                return true;
+            }
+        }
+        if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) && checkUpperLeft(piece) == EMPTY){
+            if((checkUpperRight(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkUpperRight(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkUpperRight(piece.getRow() - 3, piece.getColumn() + 1) == EMPTY){
+                return true;
+            }
+            if((checkUpperLeft(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkUpperLeft(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkUpperLeft(piece.getRow() - 3, piece.getColumn() - 3) == EMPTY){
+                return true;
+            }
+            if(checkLowerRight(piece) == ENEMY_KING &&
+                    (checkLowerRight(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkLowerRight(piece.getRow() - 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkLowerRight(piece.getRow(), piece.getColumn() - 2) == EMPTY){
+                return true;
+            }
+        }
+        if(checkUpperLeft(piece) == ENEMY_KING && checkLowerRight(piece) == EMPTY){
+            if((checkUpperRight(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                    checkUpperRight(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY) &&
+                    checkUpperRight(piece.getRow(), piece.getColumn() + 2) == EMPTY){
+                return true;
+            }
+            if((checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                    checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY) &&
+                    checkLowerRight(piece.getRow() + 2, piece.getColumn() + 2) == EMPTY){
+                return true;
+            }
+            if((checkLowerLeft(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                    checkLowerLeft(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY) &&
+                    checkLowerLeft(piece.getRow() + 2, piece.getColumn()) == EMPTY){
+                return true;
+            }
+        }
+        if(checkUpperRight(piece) == ENEMY_KING && checkLowerLeft(piece) == EMPTY){
+            if((checkUpperLeft(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkUpperLeft(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkUpperLeft(piece.getRow(), piece.getColumn() - 2) == EMPTY){
+                return true;
+            }
+            if((checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkLowerLeft(piece.getRow() - 2, piece.getColumn() - 2) == EMPTY){
+                return true;
+            }
+            if((checkLowerRight(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY_KING ||
+                    checkLowerRight(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY) &&
+                    checkLowerRight(piece.getRow() + 2, piece.getColumn()) == EMPTY){
+                return true;
+            }
+        }
+        return false;
     }
 
 
-    public void isTwoInARow(GamePiece piece, int row, int column){}
+    public boolean isTwoInARow(GamePiece piece){
+        if(checkLowerLeft(piece) == FRIENDLY || checkLowerLeft(piece) == FRIENDLY_KING ||
+                checkLowerRight(piece) == FRIENDLY || checkLowerRight(piece) == FRIENDLY_KING ||
+                checkUpperLeft(piece) == FRIENDLY || checkUpperLeft(piece) == FRIENDLY_KING ||
+                checkUpperRight(piece) == FRIENDLY || checkUpperRight(piece) == FRIENDLY_KING){
+            return true;
+        }
+        return false;
+    }
 
-    public void isMovingBackRow(GamePiece piece){}
+    public boolean isDefendFromImmediateJump(GamePiece piece){
+        if((checkLowerLeft(piece) == FRIENDLY_KING || checkLowerLeft(piece) == FRIENDLY) &&
+                (checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == ENEMY_KING ||
+                checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == ENEMY)){
+            return true;
+        }
+        if((checkLowerRight(piece) == FRIENDLY_KING || checkLowerRight(piece) == FRIENDLY) &&
+                (checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == ENEMY_KING ||
+                checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == ENEMY)){
+            return true;
+        }
+        if((checkUpperLeft(piece) == FRIENDLY_KING || checkUpperLeft(piece) == FRIENDLY) &&
+                (checkUpperLeft(piece.getRow() - 1, piece.getColumn() - 1) == ENEMY_KING ||
+                checkUpperLeft(piece.getRow() - 1, piece.getColumn() - 1) == ENEMY)){
+            return true;
+        }
+        if((checkUpperRight(piece) == FRIENDLY_KING || checkUpperRight(piece) == FRIENDLY) &&
+                (checkUpperRight(piece.getRow() - 1, piece.getColumn() + 1) == ENEMY_KING ||
+                checkUpperRight(piece.getRow() - 1, piece.getColumn() + 1) == ENEMY)){
+            return true;
+        }
+        return false;
+    }
 
-    public void isDefendFromImmediateJump(GamePiece piece, int row, int column){}
 
-    public void isLeavingOthersForJump(GamePiece piece, int row, int column){}
 
-    public void isSettingUpOwnJump(GamePiece piece, int row, int column){}
+    public boolean isSettingUpOwnJump(GamePiece piece){
+        if(checkUpperRight(piece) == FRIENDLY || checkUpperRight(piece) == FRIENDLY_KING){
+            if((checkLowerLeft(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) && isAJump(piece)){
+                return true;
+            }
+        }
+        if(checkUpperLeft(piece) == FRIENDLY || checkUpperLeft(piece) == FRIENDLY_KING){
+            if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) && isAJump(piece)){
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public void isGettingKing(GamePiece piece, int row, int column){}
+    public boolean isGettingKing(GamePiece piece){
+        return piece.getRow() == 7;
+    }
 
-    public void isBlockingOwnJump(GamePiece piece, int row, int column){}
+    public boolean isBlockingOwnJump(GamePiece piece){
+        if((checkUpperLeft(piece) == ENEMY || checkUpperLeft(piece) == ENEMY_KING) &&
+                (checkUpperLeft(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                checkUpperLeft(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY)){
+            return true;
+        }
+        if((checkUpperRight(piece) == ENEMY || checkUpperRight(piece) == ENEMY_KING) &&
+                (checkUpperRight(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY_KING ||
+                checkUpperLeft(piece.getRow() - 1, piece.getColumn() + 1) == FRIENDLY)){
+            return true;
+        }
+        if((checkLowerLeft(piece) == ENEMY || checkLowerLeft(piece) == ENEMY_KING) &&
+                checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == FRIENDLY_KING){
+            return true;
+        }
+        if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) &&
+                checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == FRIENDLY_KING){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAJump(GamePiece piece){
+        if((checkLowerLeft(piece) == ENEMY || checkLowerLeft(piece) == ENEMY_KING) &&
+                checkLowerLeft(piece.getRow() + 1, piece.getColumn() - 1) == EMPTY){
+            return true;
+        }
+        if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) &&
+                checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == EMPTY){
+            return true;
+        }
+        return false;
+    }
 
 
 }
