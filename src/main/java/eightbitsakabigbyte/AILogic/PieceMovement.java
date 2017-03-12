@@ -9,7 +9,6 @@ import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 public class PieceMovement {
     public GameService gameService = new GameService();
-    public byte moveCounter;
     public byte highestCounter;
     public ArrayList<GamePiece> bestMoveStart = new ArrayList<>();
     public ArrayList<GamePiece> bestMoveEnd = new ArrayList<>();
@@ -22,7 +21,7 @@ public class PieceMovement {
     protected final byte movingBackRow = -1;
     protected final byte movingIntoSpaceWillBeJumped = -2;
     protected final byte avoidExistingMultiJump = 2;
-    protected final byte avoidMovingIntoMultiJump = 2;
+    protected final byte movingIntoSpaceWillBeMultiJumped = 2;
     protected final byte leavingOthersToBeJumped = -2;
     protected final byte settingUpOwnJump = 1;
     protected final byte gettingAKing = 5;
@@ -68,6 +67,7 @@ public class PieceMovement {
             return EMPTY;
         }
     }
+
 
     public Pieces checkUpperLeft(GamePiece piece){
         if(piece.getRow() != 0 && piece.getColumn() != 0) {
@@ -125,6 +125,7 @@ public class PieceMovement {
         return EMPTY;
     }
 
+
     public void checkAvailableJump(GamePiece piece){
         if(checkLowerRight(piece) == ENEMY || checkLowerLeft(piece) == ENEMY
                 || checkLowerRight(piece) == ENEMY_KING || checkLowerLeft(piece) == ENEMY_KING){
@@ -148,59 +149,76 @@ public class PieceMovement {
         }
     }
 
-    protected boolean checkForMoves(GamePiece piece){
-        if(checkLowerLeft(piece) == EMPTY || checkLowerRight(piece) == EMPTY){
-            return true;
+    public void checkForMoves(GamePiece piece){
+        if(checkLowerLeft(piece) == EMPTY) {
+            determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1);
+        } else if(checkLowerRight(piece) == EMPTY) {
+            determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1);
         } else {
-            return false;
+
         }
     }
 
-    protected void determineValueOfMove(GamePiece piece, int moveRow, int moveColumn){}
-
-//not right, need to see too in morning
-    protected void isAvoidJump(GamePiece piece, int row, int column){
-        if (checkLowerLeft(piece) == ENEMY){
-            moveCounter += avoidImmediateJump;
-        } else if(checkLowerRight(piece) == ENEMY) {
-            moveCounter += avoidImmediateJump;
-        } else if(checkUpperLeft(piece) == ENEMY_KING) {
-            if(checkLowerLeft(piece) == EMPTY || checkLowerRight(piece) == EMPTY){
-                moveCounter += avoidImmediateJump;
-            }
-        }else if(checkUpperRight(piece) == ENEMY_KING){
-            if(checkLowerLeft(piece) == EMPTY || checkLowerRight(piece) == EMPTY){
-                moveCounter += avoidImmediateJump;
+    public byte determineValueOfMove(GamePiece piece, int row, int column){
+        byte moveCounter = 0;
+        if(isAvoidJump(piece)){moveCounter += avoidImmediateJump;}
+        if(isMovingIntoJumpOnNextTurn(piece, row, column)){
+            moveCounter += movingIntoSpaceWillBeJumped;
+            if(isMovingIntoMultiJumpOnNextTurn(piece, row, column)){
+                moveCounter += movingIntoSpaceWillBeMultiJumped;
             }
         }
-    }
 
-    protected void isMultiJumpOnNextTurn(GamePiece piece, int row, int column){
 
-    }
-
-    public GamePiece makeMove(GamePiece piece, GamePiece space, int row, int column){
-
-        return null;
-    }
-
-    protected void isJumpOnNextTurn(GamePiece piece, int row, int column){
 
     }
 
-    protected void isTwoInARow(GamePiece piece, GamePiece move){}
+    public boolean isAvoidJump(GamePiece piece){
+        if((checkLowerLeft(piece) == ENEMY || checkLowerLeft(piece) == ENEMY_KING) &&  checkUpperRight(piece) == EMPTY){
+            return true;
+        }
+        if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) &&  checkUpperLeft(piece) == EMPTY) {
+            return true;
+        }
+        if(checkUpperLeft(piece) == ENEMY_KING && checkLowerRight(piece) == EMPTY){
+            return true;
+        }
+        if(checkUpperRight(piece) == ENEMY_KING && checkLowerLeft(piece) == EMPTY){
+            return true;
+        }
+        return false;
+    }
 
-    protected void isMovingBackRow(GamePiece piece, GamePiece move){}
+    public boolean isMovingIntoJumpOnNextTurn(GamePiece piece, int row, int column){
+        int originalRow = piece.getRow();
+        int originalColumn = piece.getColumn();
+        makeMove(piece, row, column);
+        if(isAvoidJump(piece)){
+            makeMove(piece, originalRow, originalColumn);
+            return true;
+        }
+        makeMove(piece, originalRow, originalColumn);
+        return false;
+    }
 
-    protected void isDefendFromImmediateJump(GamePiece piece, GamePiece move){}
+    public boolean isMovingIntoMultiJumpOnNextTurn(GamePiece piece, int row, int column){
+        
+    }
 
-    protected void isLeavingOthersForJump(GamePiece piece, GamePiece move){}
 
-    protected void isSettingUpOwnJump(GamePiece piece, GamePiece move){}
+    public void isTwoInARow(GamePiece piece, int row, int column){}
 
-    protected void isGettingKing(GamePiece piece, GamePiece move){}
+    public void isMovingBackRow(GamePiece piece){}
 
-    protected void isBlockingOwnJump(GamePiece piece, GamePiece move){}
+    public void isDefendFromImmediateJump(GamePiece piece, int row, int column){}
+
+    public void isLeavingOthersForJump(GamePiece piece, int row, int column){}
+
+    public void isSettingUpOwnJump(GamePiece piece, int row, int column){}
+
+    public void isGettingKing(GamePiece piece, int row, int column){}
+
+    public void isBlockingOwnJump(GamePiece piece, int row, int column){}
 
 
 }

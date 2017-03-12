@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PieceMovementTest {
     PieceMovement pieceMovement;
@@ -20,6 +21,8 @@ public class PieceMovementTest {
         pieceMovement.board.add(new GamePiece(true, 15, 4, 3));
         pieceMovement.board.add(new GamePiece(true, -1, 7, 0));
         pieceMovement.board.add(new GamePiece(false, 20, 6, 3));
+        pieceMovement.board.add(new GamePiece(false, 21, 5, 0));
+        pieceMovement.board.add(new GamePiece(false, 10, 4, 1));
     }
 
     @Test
@@ -116,4 +119,47 @@ public class PieceMovementTest {
         int actual = pieceMovement.board.size();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void isAvoidJumpTest(){
+        assertTrue(pieceMovement.isAvoidJump(pieceMovement.board.get(7)));
+    }
+
+    @Test
+    public void isMovingIntoJumpOnNextTurn(){
+        assertTrue(pieceMovement.isMovingIntoJumpOnNextTurn(pieceMovement.board.get(7), 5, 2);
+    }
+
+    @Test
+    public void isMovingIntoMultiJumpOnNextTurn(){
+        assertTrue(pieceMovement.isMovingIntoMultiJumpOnNextTurn(new GamePiece(true, -1, 5, 4)));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,10 +1,13 @@
+/*
 package eightbitsakabigbyte.Entity;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by anthonypajerowski on 3/10/17.
- */
+ *//*
+
 public class GamePieces {
     private ArrayList<GamePiece> currentPieces = new ArrayList<GamePiece>();
     private int pieceCounter = 1;
@@ -68,3 +71,4 @@ public class GamePieces {
 
     }
 }
+*/
