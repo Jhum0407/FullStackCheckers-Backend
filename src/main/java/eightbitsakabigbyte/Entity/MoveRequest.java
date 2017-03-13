@@ -1,13 +1,13 @@
-package eightbitsakabigbyte.Service;
+package eightbitsakabigbyte.Entity;
 
 /**
  * Created by anthonypajerowski on 3/8/17.
  */
 public class MoveRequest {
 
-    private int id;
-    private int column;
-    private int row;
+    private static int id;
+    private static int row;
+    private static int column;
 
     public int getId() {
         return id;

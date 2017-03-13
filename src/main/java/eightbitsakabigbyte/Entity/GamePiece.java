@@ -1,34 +1,41 @@
 package eightbitsakabigbyte.Entity;
 
-/**
- * Created by gillianreynolds-titko on 3/7/17.
- */
 public class GamePiece {
 
-    private String color = "";
     private boolean isKing = false;
-    private int identifier = 0;
+    private int identifier;
+    private int row;
+    private int column;
 
-    public GamePiece(String color){
-        this.color = color;
+    public GamePiece(boolean isKing, int identifier, int row, int column) {
+        this.isKing = isKing;
+        this.identifier = identifier;
+        this.row = row;
+        this.column = column;
     }
 
-
-    public String getColor() {
-        return color;
+    public int getRow() {
+        return row;
     }
 
-    public void setColor(String color) {
-
-        this.color = color;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public boolean isKing() {
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public boolean getIsKing() {
 
         return isKing;
     }
 
-    public void setKing(boolean king) {
+    public void setIsKing(boolean king) {
 
         isKing = king;
     }

@@ -1,11 +1,12 @@
-package eightbitsakabigbyte.Dao;
-
-import org.springframework.stereotype.Repository;
-
-/**
- * Created by anthonypajerowski on 3/8/17.
- */
-
-@Repository
-public class GameDao {
-}
+//package eightbitsakabigbyte.Dao;
+//
+//public interface GameDao{
+//
+//    GameBoard getGameBoardById(int id);
+//
+//    void removeGameBoardById(int id);
+//
+//    void updateGameBoard(GameBoard gameBoard);
+//
+//    void insertGameBoardToDb(GameBoard gameBoard);
+//}
