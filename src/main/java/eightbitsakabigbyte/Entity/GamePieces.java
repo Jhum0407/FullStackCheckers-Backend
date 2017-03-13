@@ -6,9 +6,6 @@ public class GamePieces extends ArrayList<GamePiece>{
 
     private int pieceCounter = 1;
 
-    public GamePieces(){
-    }
-
     public void createGamePieces(){
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 8; column++) {

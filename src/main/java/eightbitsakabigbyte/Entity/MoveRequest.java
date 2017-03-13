@@ -1,13 +1,19 @@
 package eightbitsakabigbyte.Entity;
 
-/**
- * Created by anthonypajerowski on 3/8/17.
- */
 public class MoveRequest {
 
     private static int id;
     private static int row;
     private static int column;
+    private static boolean isKing;
+
+    public static boolean isIsKing() {
+        return isKing;
+    }
+
+    public static void setIsKing(boolean isKing) {
+        MoveRequest.isKing = isKing;
+    }
 
     public int getId() {
         return id;
