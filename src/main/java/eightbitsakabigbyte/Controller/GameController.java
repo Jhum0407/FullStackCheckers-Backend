@@ -7,42 +7,24 @@ import org.springframework.web.bind.annotation.*;
 import eightbitsakabigbyte.Entity.MoveRequest;
 import org.springframework.http.MediaType;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/board")
 public class GameController {
 
-//    @Autowired
-//    private GameService gameService;
-//    private GameBoard board = new GameBoard();
-//
+    @Autowired
+    private GameService gameService;
 
-    //Get a current state of the game board
-//    @RequestMapping(method = RequestMethod.POST)
-//    public String getAllPieces(){
-//        return jsonConverter.convertBoardToJson(board);
-//    }
 
-    //Post the mvp board with one checker in position [0][1]
-//    @CrossOrigin
-//    @RequestMapping(method = RequestMethod.GET)
-//    public GamePiece[][] sendGameBoard() {
-//       // mvpBoard = gameService.MVPboard();
-//        System.out.println(board.toString());
-//        return board.getGameBoard();
-////       return jsonConverter.convertBoardToJson(mvpBoard);
-//    }
+    //Get the current board
+    @RequestMapping(method = RequestMethod.GET)
+    public GameService getAllPieces(){
+        return gameService;
+    }
 
-//    @RequestMapping(value = "/movestatus", method = RequestMethod.POST)
-//    public boolean isLegal(@RequestBody Boolean boolan){
-//
-//    }
-
-    //Give back an updated state of the game board
-    @CrossOrigin
+    //Return
     @RequestMapping(value = "/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean getMoveRequest(@RequestBody MoveRequest request) {
-        System.out.println(request.toString());
-//        gameService.movePiece();
         return true;
     }
 }
