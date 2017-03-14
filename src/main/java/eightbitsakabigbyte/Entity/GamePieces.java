@@ -1,29 +1,26 @@
-/*
+
 package eightbitsakabigbyte.Entity;
 
 import java.util.ArrayList;
 
 
-public class GamePieces {
-    private ArrayList<GamePiece> currentPieces = new ArrayList<GamePiece>();
-
-
+public class GamePieces extends ArrayList {
 
     private int pieceCounter = 1;
 
-    public GamePieces(){
+    public GamePieces() {
     }
 
-    public void createGamePieces(){
+    public void createGamePieces() {
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 8; column++) {
                 if (column % 2 != 0 && row % 2 == 0) {
-                    GamePiece piece = new GamePiece(false, pieceCounter,row,column);
+                    GamePiece piece = new GamePiece(false, pieceCounter, row, column);
                     add(piece);
                     pieceCounter++;
                 }
                 if (row == 1 && column % 2 == 0) {
-                    GamePiece piece = new GamePiece(false, pieceCounter,row,column);
+                    GamePiece piece = new GamePiece(false, pieceCounter, row, column);
                     add(piece);
                     pieceCounter++;
                 }
@@ -32,14 +29,16 @@ public class GamePieces {
         for (int row = 5; row < 8; row++) {
             for (int column = 0; column < 8; column++) {
                 if (column % 2 == 0 && row % 2 != 0) {
-                    GamePiece piece = new GamePiece(false, pieceCounter,row,column);
+                    GamePiece piece = new GamePiece(false, pieceCounter, row, column);
                     add(piece);
                     pieceCounter++;
                 }
                 if (row == 6 && column % 2 != 0) {
-                    GamePiece piece = new GamePiece(false, pieceCounter,row,column);
+                    GamePiece piece = new GamePiece(false, pieceCounter, row, column);
                     add(piece);
                     pieceCounter++;
                 }
             }
         }
+    }
+}
