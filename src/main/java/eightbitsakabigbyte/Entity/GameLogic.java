@@ -19,4 +19,8 @@ public class GameLogic {
 //        }
 //        return false;
 //    }
+
+    public boolean isLegalMove(MoveRequest request){
+        return (request.getRow() == 1);
+    }
 }
