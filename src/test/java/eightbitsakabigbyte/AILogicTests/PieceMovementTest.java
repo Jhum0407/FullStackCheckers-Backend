@@ -1,5 +1,6 @@
 package eightbitsakabigbyte.AILogicTests;
 
+import eightbitsakabigbyte.AILogic.AIController;
 import eightbitsakabigbyte.AILogic.PieceMovement;
 import eightbitsakabigbyte.AILogic.Pieces;
 import eightbitsakabigbyte.Entity.GamePiece;
@@ -12,8 +13,10 @@ import static org.junit.Assert.assertTrue;
 
 public class PieceMovementTest {
     PieceMovement pieceMovement;
+    AIController aiController;
     @Before
     public void setUp(){
+        aiController = new AIController();
         pieceMovement = new PieceMovement();
         pieceMovement.board.add(new GamePiece(false, 1, 3, 4));
         pieceMovement.board.add(new GamePiece(true, 2, 4, 5));
@@ -27,7 +30,7 @@ public class PieceMovementTest {
 
     @Test
     public void makeMoveTest(){
-        pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
+        aiController.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 5;
         int actual = pieceMovement.board.get(1).getRow();
         assertEquals(expected, actual);
@@ -35,7 +38,7 @@ public class PieceMovementTest {
 
     @Test
     public void makeMoveTest2(){
-        pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
+        aiController.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 4;
         int actual = pieceMovement.board.get(1).getColumn();
         assertEquals(expected, actual);

@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 public class PieceMovement {
+    AIController aiController = new AIController();
     //public GameService gameService = new GameService();
-    public byte highestCounter;
-    public ArrayList<GamePiece> bestMovePiece = new ArrayList<>();
-    public ArrayList<Integer> bestMoveRow = new ArrayList<>();
-    public ArrayList<Integer> bestMoveColumn = new ArrayList<>();
+    //will be instance of GamePieces
     public ArrayList<GamePiece> board = new ArrayList<>();
 
     protected final byte multiJump = 4;
@@ -27,18 +25,6 @@ public class PieceMovement {
     protected final byte blockOwnJump = -2;
     protected final byte twoInARow = 1;
     protected final byte normalPieceBonus = 2;
-
-
-    public GamePiece moveChoice(){
-        return null;
-    }
-
-    public void makeMove(GamePiece piece, int row, int column){
-        if(piece.getIdentifier() > 0 && piece.getIdentifier() < 13) {
-            piece.setRow(row);
-            piece.setColumn(column);
-        }
-    }
 
 
     public void removePiece(GamePiece piece){
@@ -202,8 +188,7 @@ public class PieceMovement {
 //        return EMPTY;
 //    }
 
-
-    public void checkAvailableJump(GamePiece piece){
+    public boolean checkAvailableJump(GamePiece piece){
         if(checkLowerRight(piece) == ENEMY || checkLowerLeft(piece) == ENEMY
                 || checkLowerRight(piece) == ENEMY_KING || checkLowerLeft(piece) == ENEMY_KING){
             for(int i = 0; i < board.size(); i++){
@@ -211,47 +196,44 @@ public class PieceMovement {
                 if(temp.getRow() == (piece.getRow() + 1)
                         && temp.getColumn() == (piece.getColumn() - 1)
                         && checkLowerLeft(temp) == EMPTY){
-                    makeMove(piece, piece.getRow() + 2, piece.getColumn() - 2);
+                    aiController.makeMove(piece, piece.getRow() + 2, piece.getColumn() - 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
+                    return true;
                 }
                 if (temp.getRow() == piece.getRow() + 1
                         && temp.getColumn() == piece.getColumn() + 1
                         && checkLowerRight(temp) == EMPTY) {
-                    makeMove(piece, piece.getRow() + 2, piece.getColumn() + 2);
+                    aiController.makeMove(piece, piece.getRow() + 2, piece.getColumn() + 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
+                    return true;
                 }
             }
         }
-    }
-
-    public void checkForMoves(GamePiece piece){
-        if(checkLowerLeft(piece) == EMPTY) {
-            byte moveValue = determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1);
-            assignMove(piece, piece.getRow() + 1, piece.getColumn() - 1, moveValue);
+        if(piece.getIsKing() == true && checkUpperRight(piece) == ENEMY || checkUpperLeft(piece) == ENEMY
+                || checkUpperRight(piece) == ENEMY_KING || checkUpperLeft(piece) == ENEMY_KING){
+            for(int i = 0; i < board.size(); i++){
+                GamePiece temp = board.get(i);
+                if(temp.getRow() == (piece.getRow() - 1)
+                        && temp.getColumn() == (piece.getColumn() - 1)
+                        && checkUpperLeft(temp) == EMPTY){
+                    aiController.makeMove(piece, piece.getRow() - 2, piece.getColumn() - 2);
+                    removePiece(temp);
+                    checkAvailableJump(piece);
+                    return true;
+                }
+                if (temp.getRow() == piece.getRow() - 1
+                        && temp.getColumn() == piece.getColumn() + 1
+                        && checkUpperRight(temp) == EMPTY) {
+                    aiController.makeMove(piece, piece.getRow() - 2, piece.getColumn() + 2);
+                    removePiece(temp);
+                    checkAvailableJump(piece);
+                    return true;
+                }
+            }
         }
-        if(checkLowerRight(piece) == EMPTY) {
-            byte moveValue = determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1);
-            assignMove(piece, piece.getRow() + 1, piece.getColumn() + 1, moveValue);
-        }
-    }
-
-    public void assignMove(GamePiece piece, int row, int column, byte moveValue){
-        if(moveValue > highestCounter){
-            highestCounter = moveValue;
-            bestMovePiece = new ArrayList<>();
-            bestMovePiece.add(piece);
-            bestMoveColumn = new ArrayList<>();
-            bestMoveColumn.add(column);
-            bestMoveRow = new ArrayList<>();
-            bestMoveRow.add(row);
-        }
-        if(moveValue == highestCounter){
-            bestMovePiece.add(piece);
-            bestMoveColumn.add(column);
-            bestMoveRow.add(row);
-        }
+        return false;
     }
 
     public byte determineValueOfMove(GamePiece piece, int row, int column){
@@ -261,7 +243,7 @@ public class PieceMovement {
         if (isLeavingOthersForJump(piece)) {moveCounter += leavingOthersToBeJumped;}
         int originalRow = piece.getRow();
         int originalColumn = piece.getColumn();
-        makeMove(piece, row, column);
+        aiController.makeMove(piece, row, column);
         if(isGettingKing(piece)){moveCounter += gettingAKing;}
         if(isMovingIntoJumpOnNextTurn(piece)){
             moveCounter += movingIntoSpaceWillBeJumped;
@@ -277,8 +259,9 @@ public class PieceMovement {
         }
         if(isSettingUpOwnJump(piece)){moveCounter += settingUpOwnJump;}
         if(isBlockingOwnJump(piece)){moveCounter += blockOwnJump;}
+        if(piece.getIsKing() == false){moveCounter += normalPieceBonus;}
 
-        makeMove(piece, originalRow, originalColumn);
+        aiController.makeMove(piece, originalRow, originalColumn);
         return moveCounter;
 
     }
@@ -460,6 +443,16 @@ public class PieceMovement {
                 return true;
             }
         }
+        if(piece.getIsKing() == true && (checkLowerLeft(piece) == FRIENDLY || checkLowerLeft(piece) == FRIENDLY_KING)){
+            if((checkUpperRight(piece) == ENEMY || checkUpperRight(piece) == ENEMY_KING) && isAJump(piece)){
+                return true;
+            }
+        }
+        if(piece.getIsKing() == true && (checkLowerRight(piece) == FRIENDLY || checkLowerRight(piece) == FRIENDLY_KING)){
+            if((checkUpperLeft(piece) == ENEMY || checkUpperLeft(piece) == ENEMY_KING) && isAJump(piece)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -496,6 +489,14 @@ public class PieceMovement {
         }
         if((checkLowerRight(piece) == ENEMY || checkLowerRight(piece) == ENEMY_KING) &&
                 checkLowerRight(piece.getRow() + 1, piece.getColumn() + 1) == EMPTY){
+            return true;
+        }
+        if(piece.getIsKing() == true && (checkUpperLeft(piece) == ENEMY || checkUpperLeft(piece) == ENEMY_KING) &&
+                checkUpperLeft(piece.getRow() - 1, piece.getColumn() - 1) == EMPTY){
+            return true;
+        }
+        if(piece.getIsKing() == true && (checkUpperRight(piece) == ENEMY || checkUpperRight(piece) == ENEMY_KING) &&
+                checkLowerRight(piece.getRow() - 1, piece.getColumn() + 1) == EMPTY){
             return true;
         }
         return false;
