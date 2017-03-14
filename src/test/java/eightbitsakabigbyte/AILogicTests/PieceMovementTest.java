@@ -1,6 +1,5 @@
 package eightbitsakabigbyte.AILogicTests;
 
-import eightbitsakabigbyte.AILogic.AIController;
 import eightbitsakabigbyte.AILogic.PieceMovement;
 import eightbitsakabigbyte.AILogic.Pieces;
 import eightbitsakabigbyte.Entity.GamePiece;
@@ -13,10 +12,11 @@ import static org.junit.Assert.assertTrue;
 
 public class PieceMovementTest {
     PieceMovement pieceMovement;
-    AIController aiController;
+    PieceMovement pieceMovement2;
+
     @Before
     public void setUp(){
-        aiController = new AIController();
+        //aiController = new AIController();
         pieceMovement = new PieceMovement();
         pieceMovement.board.add(new GamePiece(false, 1, 3, 4));
         pieceMovement.board.add(new GamePiece(true, 2, 4, 5));
@@ -26,11 +26,17 @@ public class PieceMovementTest {
         pieceMovement.board.add(new GamePiece(false, 20, 6, 3));
         pieceMovement.board.add(new GamePiece(false, 21, 5, 0));
         pieceMovement.board.add(new GamePiece(false, 10, 4, 1));
+
+        pieceMovement2 = new PieceMovement();
+        pieceMovement2.board.add(new GamePiece(false, 19, 6, 3));
+        pieceMovement2.board.add(new GamePiece(false, 3, 5, 4));
+        pieceMovement2.board.add(new GamePiece(false, 5, 3, 4));
+
     }
 
     @Test
     public void makeMoveTest(){
-        aiController.makeMove(pieceMovement.board.get(1), 5, 4);
+        pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 5;
         int actual = pieceMovement.board.get(1).getRow();
         assertEquals(expected, actual);
@@ -38,7 +44,7 @@ public class PieceMovementTest {
 
     @Test
     public void makeMoveTest2(){
-        aiController.makeMove(pieceMovement.board.get(1), 5, 4);
+        pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 4;
         int actual = pieceMovement.board.get(1).getColumn();
         assertEquals(expected, actual);
@@ -135,7 +141,7 @@ public class PieceMovementTest {
 
     @Test
     public void isMovingIntoMultiJumpOnNextTurn(){
-        assertTrue(pieceMovement.isMovingIntoMultiJumpOnNextTurn(new GamePiece(true, -1, 5, 4)));
+        assertTrue(pieceMovement2.isMovingIntoMultiJumpOnNextTurn(pieceMovement2.board.get(1)));
     }
 }
 

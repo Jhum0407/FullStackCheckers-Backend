@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 public class PieceMovement {
-    AIController aiController = new AIController();
     //public GameService gameService = new GameService();
     //will be instance of GamePieces
     public ArrayList<GamePiece> board = new ArrayList<>();
@@ -187,6 +186,13 @@ public class PieceMovement {
 //        }
 //        return EMPTY;
 //    }
+    public void makeMove(GamePiece piece, int row, int column){
+    if(piece.getIdentifier() > 0 && piece.getIdentifier() < 13) {
+        piece.setRow(row);
+        piece.setColumn(column);
+    }
+}
+
 
     public boolean checkAvailableJump(GamePiece piece){
         if(checkLowerRight(piece) == ENEMY || checkLowerLeft(piece) == ENEMY
@@ -196,7 +202,7 @@ public class PieceMovement {
                 if(temp.getRow() == (piece.getRow() + 1)
                         && temp.getColumn() == (piece.getColumn() - 1)
                         && checkLowerLeft(temp) == EMPTY){
-                    aiController.makeMove(piece, piece.getRow() + 2, piece.getColumn() - 2);
+                    makeMove(piece, piece.getRow() + 2, piece.getColumn() - 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
                     return true;
@@ -204,7 +210,7 @@ public class PieceMovement {
                 if (temp.getRow() == piece.getRow() + 1
                         && temp.getColumn() == piece.getColumn() + 1
                         && checkLowerRight(temp) == EMPTY) {
-                    aiController.makeMove(piece, piece.getRow() + 2, piece.getColumn() + 2);
+                    makeMove(piece, piece.getRow() + 2, piece.getColumn() + 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
                     return true;
@@ -218,7 +224,7 @@ public class PieceMovement {
                 if(temp.getRow() == (piece.getRow() - 1)
                         && temp.getColumn() == (piece.getColumn() - 1)
                         && checkUpperLeft(temp) == EMPTY){
-                    aiController.makeMove(piece, piece.getRow() - 2, piece.getColumn() - 2);
+                    makeMove(piece, piece.getRow() - 2, piece.getColumn() - 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
                     return true;
@@ -226,7 +232,7 @@ public class PieceMovement {
                 if (temp.getRow() == piece.getRow() - 1
                         && temp.getColumn() == piece.getColumn() + 1
                         && checkUpperRight(temp) == EMPTY) {
-                    aiController.makeMove(piece, piece.getRow() - 2, piece.getColumn() + 2);
+                    makeMove(piece, piece.getRow() - 2, piece.getColumn() + 2);
                     removePiece(temp);
                     checkAvailableJump(piece);
                     return true;
@@ -243,7 +249,7 @@ public class PieceMovement {
         if (isLeavingOthersForJump(piece)) {moveCounter += leavingOthersToBeJumped;}
         int originalRow = piece.getRow();
         int originalColumn = piece.getColumn();
-        aiController.makeMove(piece, row, column);
+        makeMove(piece, row, column);
         if(isGettingKing(piece)){moveCounter += gettingAKing;}
         if(isMovingIntoJumpOnNextTurn(piece)){
             moveCounter += movingIntoSpaceWillBeJumped;
@@ -261,7 +267,7 @@ public class PieceMovement {
         if(isBlockingOwnJump(piece)){moveCounter += blockOwnJump;}
         if(piece.getIsKing() == false){moveCounter += normalPieceBonus;}
 
-        aiController.makeMove(piece, originalRow, originalColumn);
+        makeMove(piece, originalRow, originalColumn);
         return moveCounter;
 
     }
