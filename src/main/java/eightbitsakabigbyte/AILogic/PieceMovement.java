@@ -1,14 +1,13 @@
 package eightbitsakabigbyte.AILogic;
 
 import eightbitsakabigbyte.Entity.GamePiece;
-import eightbitsakabigbyte.Service.GameService;
 
 import java.util.ArrayList;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 public class PieceMovement {
-    public GameService gameService = new GameService();
+    //public GameService gameService = new GameService();
     public byte highestCounter;
     public ArrayList<GamePiece> bestMovePiece = new ArrayList<>();
     public ArrayList<Integer> bestMoveRow = new ArrayList<>();

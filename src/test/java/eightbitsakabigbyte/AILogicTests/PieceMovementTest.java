@@ -127,7 +127,7 @@ public class PieceMovementTest {
 
     @Test
     public void isMovingIntoJumpOnNextTurn(){
-        assertTrue(pieceMovement.isMovingIntoJumpOnNextTurn(pieceMovement.board.get(7), 5, 2);
+        assertTrue(pieceMovement.isMovingIntoJumpOnNextTurn(pieceMovement.board.get(7)));
     }
 
     @Test

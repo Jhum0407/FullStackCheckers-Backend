@@ -1,26 +1,23 @@
-/*
-package eightbitsakabigbyte.EntityTest;
+package eightbitsakabigbyte.ServiceTest;
 
-import eightbitsakabigbyte.Entity.GamePieces;
+import eightbitsakabigbyte.Service.GameService;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-*/
+
 /**
  * Created by anthonypajerowski on 3/10/17.
- *//*
-
-public class GamePiecesTest {
-    GamePieces gamePieces;
+ */
+public class GameServiceTest {
+    GameService gameService;
 
     @Before
-    public void setup(){
-        gamePieces = new GamePieces();
+    public void setup() {
+        gameService = new GameService();
     }
 
     @Test
-    public void gamePiecesTest(){
+    public void boardInitializationTest() {
         String expected = "1 0 1 false\n" +
                 "2 0 3 false\n" +
                 "3 0 5 false\n" +
@@ -45,8 +42,7 @@ public class GamePiecesTest {
                 "22 7 2 false\n" +
                 "23 7 4 false\n" +
                 "24 7 6 false\n";
-        String actual = gamePieces.toString();
+        String actual = gameService.toString();
         assertEquals(expected,actual);
     }
 }
-*/

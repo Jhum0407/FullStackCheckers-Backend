@@ -11,6 +11,4 @@ public class GamePieceTest {
         //gamePiece = new GamePiece();
     }
 
-
-
 }
