@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PieceMovementTest {
@@ -26,12 +27,15 @@ public class PieceMovementTest {
         pieceMovement.board.add(new GamePiece(false, 20, 6, 3));
         pieceMovement.board.add(new GamePiece(false, 21, 5, 0));
         pieceMovement.board.add(new GamePiece(false, 10, 4, 1));
+        pieceMovement.board.add(new GamePiece(true,14,7,0));
 
         pieceMovement2 = new PieceMovement();
         pieceMovement2.board.add(new GamePiece(false, 19, 6, 3));
         pieceMovement2.board.add(new GamePiece(false, 3, 5, 4));
         pieceMovement2.board.add(new GamePiece(false, 5, 3, 4));
-
+        pieceMovement2.board.add(new GamePiece(false, 17, 4, 3));
+        pieceMovement2.board.add(new GamePiece(true, 2, 3, 4));
+        pieceMovement2.board.add(new GamePiece(false,4,2,2));
     }
 
     @Test
@@ -124,7 +128,7 @@ public class PieceMovementTest {
     @Test
     public void checkAvailableJumpTest(){
         pieceMovement.checkAvailableJump(pieceMovement.board.get(0));
-        int expected = 4;
+        int expected = 6;
         int actual = pieceMovement.board.size();
         assertEquals(expected, actual);
     }
@@ -143,7 +147,57 @@ public class PieceMovementTest {
     public void isMovingIntoMultiJumpOnNextTurn(){
         assertTrue(pieceMovement2.isMovingIntoMultiJumpOnNextTurn(pieceMovement2.board.get(1)));
     }
+
+    @Test
+    public void isGettingKingTest(){
+        assertTrue(pieceMovement.isGettingKing(pieceMovement.board.get(8)));
+    }
+
+    @Test
+    public void isGettingKingTestTwo(){
+        assertFalse(pieceMovement.isAvoidJump(pieceMovement.board.get(4)));
+    }
+    @Test
+    public void isAJumpTest(){
+        assertTrue(pieceMovement2.isAJump(pieceMovement2.board.get(1)));
+    }
+    @Test
+    public void isJumpTestTwo(){
+        assertFalse(pieceMovement2.isAJump(pieceMovement2.board.get(0)));
+    }
+    @Test
+    public void isJumpTestThree(){
+        assertTrue(pieceMovement2.isAJump(pieceMovement2.board.get(4)));
+    }
+    @Test
+    public void isBlockingOwnJumpTest(){
+        assertTrue(pieceMovement.isBlockingOwnJump(pieceMovement.board.get(6)));
+    }
+
+    @Test
+    public void isBlockingOwnJumpTestTwo(){
+        assertFalse(pieceMovement2.isBlockingOwnJump(pieceMovement2.board.get(5)));
+    }
+
+    @Test
+    public void isSettingUpJumpTest(){
+        assertFalse(pieceMovement2.isSettingUpOwnJump(pieceMovement2.board.get(2)));
+    }
+
+    @Test
+    public void isLeavingOthersForJumpTest(){
+        assertTrue(pieceMovement2.isLeavingOthersForJump(pieceMovement2.board.get(3)));
+    }
+
+    @Test
+    public void isLeavingOthersForJumpTestTwo(){
+        assertFalse(pieceMovement2.isLeavingOthersForJump(pieceMovement2.board.get(5)));
+    }
+    @Test
+    public void
 }
+
+
 
 
 
