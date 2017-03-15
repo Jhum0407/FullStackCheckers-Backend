@@ -1,5 +1,6 @@
 package eightbitsakabigbyte.Controller;
 
+import eightbitsakabigbyte.AILogic.AIController;
 import eightbitsakabigbyte.Entity.GameLogic;
 import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.GamePieces;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import eightbitsakabigbyte.Entity.MoveRequest;
 import org.springframework.http.MediaType;
+
+import java.util.ArrayList;
 
 @CrossOrigin
 @RestController
@@ -26,14 +29,17 @@ public class GameController {
 
     //Get the requested board/move from the human player and return true if valid
     @RequestMapping(value = "/moverequest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public GamePieces getRequestedMove(@RequestBody MoveRequest request){
+    public GamePieces getRequestedMove(@RequestBody MoveRequest request, ArrayList<GamePiece> gamePiece){
         //send note to GameLogic to see if move is legal (if not return board/pieces to front-end) 
         //in Service, if move is legal, pass move and pieces to AI
         GameLogic gameLogic = new GameLogic();
+
         if(gameLogic.isLegalMove(request)){
-            return getAllPieces().gamePieces;
+            AIController aiController = new AIController();
+            aiController.decideMove(gamePiece);
+            return getAllPieces().gamePieces; //return an updated board
         } else
-            return getAllPieces().gamePieces;
+            return getAllPieces().gamePieces; //return the original board
     }
 
     //Return
