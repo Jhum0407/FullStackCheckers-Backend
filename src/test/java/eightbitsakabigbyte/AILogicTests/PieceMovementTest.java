@@ -16,7 +16,7 @@ public class PieceMovementTest {
     PieceMovement pieceMovement2;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         //aiController = new AIController();
         pieceMovement = new PieceMovement();
         pieceMovement.board.add(new GamePiece(false, 1, 3, 4));
@@ -27,7 +27,7 @@ public class PieceMovementTest {
         pieceMovement.board.add(new GamePiece(false, 20, 6, 3));
         pieceMovement.board.add(new GamePiece(false, 21, 5, 0));
         pieceMovement.board.add(new GamePiece(false, 10, 4, 1));
-        pieceMovement.board.add(new GamePiece(true,14,7,0));
+        pieceMovement.board.add(new GamePiece(true, 14, 7, 0));
 
         pieceMovement2 = new PieceMovement();
         pieceMovement2.board.add(new GamePiece(false, 19, 6, 3));
@@ -35,11 +35,11 @@ public class PieceMovementTest {
         pieceMovement2.board.add(new GamePiece(false, 5, 3, 4));
         pieceMovement2.board.add(new GamePiece(false, 17, 4, 3));
         pieceMovement2.board.add(new GamePiece(true, 2, 3, 4));
-        pieceMovement2.board.add(new GamePiece(false,4,2,2));
+        pieceMovement2.board.add(new GamePiece(false, 4, 2, 2));
     }
 
     @Test
-    public void makeMoveTest(){
+    public void makeMoveTest() {
         pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 5;
         int actual = pieceMovement.board.get(1).getRow();
@@ -47,7 +47,7 @@ public class PieceMovementTest {
     }
 
     @Test
-    public void makeMoveTest2(){
+    public void makeMoveTest2() {
         pieceMovement.makeMove(pieceMovement.board.get(1), 5, 4);
         int expected = 4;
         int actual = pieceMovement.board.get(1).getColumn();
@@ -55,7 +55,7 @@ public class PieceMovementTest {
     }
 
     @Test
-    public void removePieceTest(){
+    public void removePieceTest() {
         pieceMovement.removePiece(pieceMovement.board.get(3));
         int actual = pieceMovement.board.size();
         int expected = 3;
@@ -63,70 +63,70 @@ public class PieceMovementTest {
     }
 
     @Test
-    public void checkSpaceTest(){
+    public void checkSpaceTest() {
         Pieces actual = pieceMovement.checkSpace(pieceMovement.board.get(2));
         Pieces expected = ENEMY;
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkSpaceTest2(){
+    public void checkSpaceTest2() {
         Pieces actual = pieceMovement.checkSpace(pieceMovement.board.get(3));
         Pieces expected = ENEMY_KING;
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkSpaceTest3(){
+    public void checkSpaceTest3() {
         Pieces actual = pieceMovement.checkSpace(pieceMovement.board.get(1));
         Pieces expected = FRIENDLY_KING;
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkSpaceTest4(){
+    public void checkSpaceTest4() {
         Pieces actual = pieceMovement.checkSpace(pieceMovement.board.get(0));
         Pieces expected = FRIENDLY;
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkSpaceTest5(){
+    public void checkSpaceTest5() {
         Pieces actual = pieceMovement.checkSpace(pieceMovement.board.get(4));
         Pieces expected = EMPTY;
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkUpperLeftTest(){
+    public void checkUpperLeftTest() {
         Pieces expected = FRIENDLY;
         Pieces actual = pieceMovement.checkUpperLeft(pieceMovement.board.get(1));
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkUpperRightTest(){
+    public void checkUpperRightTest() {
         Pieces expected = EMPTY;
         Pieces actual = pieceMovement.checkUpperRight(pieceMovement.board.get(1));
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkLowerLeftTest(){
+    public void checkLowerLeftTest() {
         Pieces expected = ENEMY_KING;
         Pieces actual = pieceMovement.checkLowerLeft(pieceMovement.board.get(0));
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkLowerRightTest(){
+    public void checkLowerRightTest() {
         Pieces expected = EMPTY;
         Pieces actual = pieceMovement.checkLowerRight(pieceMovement.board.get(1));
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkAvailableJumpTest(){
+    public void checkAvailableJumpTest() {
         pieceMovement.checkAvailableJump(pieceMovement.board.get(0));
         int expected = 6;
         int actual = pieceMovement.board.size();
@@ -134,67 +134,69 @@ public class PieceMovementTest {
     }
 
     @Test
-    public void isAvoidJumpTest(){
+    public void isAvoidJumpTest() {
         assertTrue(pieceMovement.isAvoidJump(pieceMovement.board.get(7)));
     }
 
     @Test
-    public void isMovingIntoJumpOnNextTurn(){
+    public void isMovingIntoJumpOnNextTurn() {
         assertTrue(pieceMovement.isMovingIntoJumpOnNextTurn(pieceMovement.board.get(7)));
     }
 
     @Test
-    public void isMovingIntoMultiJumpOnNextTurn(){
+    public void isMovingIntoMultiJumpOnNextTurn() {
         assertTrue(pieceMovement2.isMovingIntoMultiJumpOnNextTurn(pieceMovement2.board.get(1)));
     }
 
     @Test
-    public void isGettingKingTest(){
+    public void isGettingKingTest() {
         assertTrue(pieceMovement.isGettingKing(pieceMovement.board.get(8)));
     }
 
     @Test
-    public void isGettingKingTestTwo(){
+    public void isGettingKingTestTwo() {
         assertFalse(pieceMovement.isAvoidJump(pieceMovement.board.get(4)));
     }
+
     @Test
-    public void isAJumpTest(){
+    public void isAJumpTest() {
         assertTrue(pieceMovement2.isAJump(pieceMovement2.board.get(1)));
     }
+
     @Test
-    public void isJumpTestTwo(){
+    public void isJumpTestTwo() {
         assertFalse(pieceMovement2.isAJump(pieceMovement2.board.get(0)));
     }
+
     @Test
-    public void isJumpTestThree(){
+    public void isJumpTestThree() {
         assertTrue(pieceMovement2.isAJump(pieceMovement2.board.get(4)));
     }
+
     @Test
-    public void isBlockingOwnJumpTest(){
+    public void isBlockingOwnJumpTest() {
         assertTrue(pieceMovement.isBlockingOwnJump(pieceMovement.board.get(6)));
     }
 
     @Test
-    public void isBlockingOwnJumpTestTwo(){
+    public void isBlockingOwnJumpTestTwo() {
         assertFalse(pieceMovement2.isBlockingOwnJump(pieceMovement2.board.get(5)));
     }
 
     @Test
-    public void isSettingUpJumpTest(){
+    public void isSettingUpJumpTest() {
         assertFalse(pieceMovement2.isSettingUpOwnJump(pieceMovement2.board.get(2)));
     }
 
     @Test
-    public void isLeavingOthersForJumpTest(){
+    public void isLeavingOthersForJumpTest() {
         assertTrue(pieceMovement2.isLeavingOthersForJump(pieceMovement2.board.get(3)));
     }
 
     @Test
-    public void isLeavingOthersForJumpTestTwo(){
+    public void isLeavingOthersForJumpTestTwo() {
         assertFalse(pieceMovement2.isLeavingOthersForJump(pieceMovement2.board.get(5)));
     }
-    @Test
-    public void
 }
 
 
