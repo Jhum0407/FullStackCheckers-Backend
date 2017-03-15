@@ -1,14 +1,23 @@
 package eightbitsakabigbyte.Service;
 
+import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.GamePieces;
 import org.springframework.stereotype.Service;
 
-    @Service
+import java.util.ArrayList;
+
+@Service
     public class GameService {
         public GamePieces gamePieces = new GamePieces();
         {
             gamePieces.createGamePieces();
         }
+
+        public boolean getAllPieces(ArrayList<GamePieces> gamePieces){
+
+            return false;
+        }
+
 
         /*@Override
         public String toString() {
