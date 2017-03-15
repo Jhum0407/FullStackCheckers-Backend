@@ -13,6 +13,8 @@ public class GameLogicTest {
     GamePieces currentPieces;
     GamePieces changedPieces;
     GamePieces changedPieces2;
+    GamePieces changedPiecesKing;
+    GamePieces changedPiecesKing2;
 
 
     @Before
@@ -20,15 +22,23 @@ public class GameLogicTest {
         currentPieces=new GamePieces();
         changedPieces=new GamePieces();
         changedPieces2=new GamePieces();
+        changedPiecesKing= new GamePieces();
+        changedPiecesKing2=new GamePieces();
         logic= new GameLogic();
         currentPieces.createGamePieces();
         changedPieces.createGamePieces();
         changedPieces2.createGamePieces();
+        changedPiecesKing.createGamePieces();
+        changedPiecesKing2.createGamePieces();
         changedPieces.getPiece(13).setRow(4);
         changedPieces.getPiece(13).setColumn(3);
-
         changedPieces2.getPiece(21).setColumn(3);
         changedPieces2.getPiece(21).setRow(6);
+        changedPiecesKing.getPiece(13).setRow(3);
+        changedPiecesKing.getPiece(13).setColumn(4);
+        changedPiecesKing2.getPiece(13).setRow(4);
+        changedPiecesKing2.getPiece(13).setColumn(3);
+
 
 
     }
@@ -81,6 +91,31 @@ public class GameLogicTest {
     public void isIllegalMoveOccupiedSpace(){
         assertFalse(logic.isLegalMovePawn(currentPieces, changedPieces2));
     }
+
+    @Test
+    public void isLegalMoveUpTotheRightKing(){
+
+        assertTrue(logic.isLegalMovePawn(currentPieces, changedPieces));
+    }
+
+    @Test
+    public void isLegalMoveUpTotheLeftKing(){
+        changedPieces.getPiece(13).setColumn(1);
+        assertTrue(logic.isLegalMovePawn(currentPieces, changedPieces));
+    }
+
+    @Test
+    public void isLegalMoveDownTotheLeftKing(){
+        assertTrue(logic.isLegalMoveKing(changedPiecesKing, changedPiecesKing2));
+    }
+
+    @Test
+    public void isLegalMoveDownTotheRightKing(){
+        changedPiecesKing2.getPiece(13).setColumn(5);
+        assertTrue(logic.isLegalMoveKing(changedPiecesKing, changedPiecesKing2));
+    }
+
+
 
 
 

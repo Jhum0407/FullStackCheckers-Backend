@@ -1,11 +1,18 @@
 package eightbitsakabigbyte.Entity;
 
 
+import eightbitsakabigbyte.AILogic.PieceMovement;
+
+import static eightbitsakabigbyte.AILogic.Pieces.EMPTY;
+import static eightbitsakabigbyte.AILogic.Pieces.ENEMY;
+import static eightbitsakabigbyte.AILogic.Pieces.ENEMY_KING;
+
 /**
  * Created by jeriahhumphrey on 3/8/17.
  */
 public class GameLogic {
-    int changeIndex;
+    private int changeIndex;
+    PieceMovement move;
 
 //
 //    public boolean isLegalMove(GameBoard board, MoveRequest request) {
@@ -54,14 +61,40 @@ public class GameLogic {
             if (comparePiecesOnBoard(currentGamePieces, changedGamePieces)) {
 
                 if ((currentGamePieces.getPiece(changeIndex).getRow() - changedGamePieces.getPiece(changeIndex).getRow() == 1) &&
-                        (currentGamePieces.getPiece(changeIndex).getColumn() - changedGamePieces.getPiece(changeIndex).getColumn() == 1 ||
-                                currentGamePieces.getPiece(changeIndex).getColumn() - changedGamePieces.getPiece(changeIndex).getColumn() == -1)) {
+                        Math.abs(currentGamePieces.getPiece(changeIndex).getColumn() - changedGamePieces.getPiece(changeIndex).getColumn()) == 1) {
                     return true;
                 }
             }
         }
         return false;
     }
+
+    public boolean isLegalMoveKing(GamePieces currentGamePieces, GamePieces changedGamePieces){
+        if(!(isOccupiedSpace(currentGamePieces, changedGamePieces))) {
+
+            if (comparePiecesOnBoard(currentGamePieces, changedGamePieces)) {
+
+
+                if (Math.abs(currentGamePieces.getPiece(changeIndex).getRow() - changedGamePieces.getPiece(changeIndex).getRow()) == 1 &&
+                        Math.abs(currentGamePieces.getPiece(changeIndex).getColumn() - changedGamePieces.getPiece(changeIndex).getColumn()) == 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isOccupiedByEnemy(GamePieces currentPieces, GamePieces changedPieces){
+        if(isOccupiedSpace(currentPieces, changedPieces)){
+            if(move.checkSpace(currentPieces.getPiece(changeIndex)).equals(ENEMY)||move.checkSpace(currentPieces.getPiece(changeIndex)).equals(ENEMY_KING)){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
 
     public GamePieces returnedBoard(){
         //Get the board after the AILogic made its move.
