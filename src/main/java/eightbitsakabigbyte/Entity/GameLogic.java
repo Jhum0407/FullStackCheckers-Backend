@@ -21,6 +21,20 @@ public class GameLogic {
 //    }
 
     public boolean isLegalMove(MoveRequest request){
-        return (request.getRow() == 1);
+        //if legal, send pieces to AILogic for AI's move.
+        GamePieces gamePieces = new GamePieces();
+        gamePieces.createGamePieces();
+        return(request.getRow()==1);
+    }
+
+    public GamePieces returnedBoard(){
+        //Get the board after the AILogic made its move.
+        GamePieces gamePieces = new GamePieces();
+        //Create a piece that represents a changed board
+        GamePiece gamePiece = new GamePiece(true, 3, 2, 5);
+        gamePieces.createGamePieces();
+        //place a piece as the nth item in the Json
+        gamePieces.add(1,gamePiece);
+        return gamePieces;
     }
 }

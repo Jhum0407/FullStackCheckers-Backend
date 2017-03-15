@@ -26,21 +26,22 @@ public class GameController {
 
     //Get the requested board/move from the human player and return true if valid
     @RequestMapping(value = "/moverequest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean getRequestedMove(@RequestBody MoveRequest request){
+    public GamePieces getRequestedMove(@RequestBody MoveRequest request){
         //send note to GameLogic to see if move is legal (if not return board/pieces to front-end) 
         //in Service, if move is legal, pass move and pieces to AI
         GameLogic gameLogic = new GameLogic();
         if(gameLogic.isLegalMove(request)){
-            return true;
+            return getAllPieces().gamePieces;
         } else
-            return false;
+            return getAllPieces().gamePieces;
     }
 
     //Return
-    @RequestMapping(value = "/updatedboard", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public GamePieces getMoveRequest(@RequestBody MoveRequest request) {
+    @RequestMapping(value = "/returnedboard", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GamePieces getMoveRequest() {
         //receive AI's move and updated board from Service
         //return updated pieces back to front-end
-        return null;
+        GameLogic gameLogic = new GameLogic();
+        return gameLogic.returnedBoard();
     }
 }
