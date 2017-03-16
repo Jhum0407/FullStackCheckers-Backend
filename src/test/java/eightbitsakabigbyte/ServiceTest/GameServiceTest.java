@@ -1,6 +1,6 @@
 package eightbitsakabigbyte.ServiceTest;
 
-import eightbitsakabigbyte.Service.GameService;
+import eightbitsakabigbyte.Entity.GameLogic;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,11 +9,11 @@ import static org.junit.Assert.*;
  * Created by anthonypajerowski on 3/10/17.
  */
 public class GameServiceTest {
-    GameService gameService;
+    GameLogic gameLogic;
 
     @Before
     public void setup() {
-        gameService = new GameService();
+        gameLogic = new GameLogic();
     }
 
     @Test
@@ -42,7 +42,7 @@ public class GameServiceTest {
                 "22 7 2 false\n" +
                 "23 7 4 false\n" +
                 "24 7 6 false\n";
-        String actual = gameService.toString();
+        String actual = gameLogic.getGamePieces().toString();
         assertEquals(expected,actual);
     }
 }

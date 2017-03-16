@@ -14,6 +14,8 @@ public class GamePiece {
         this.column = column;
     }
 
+    public GamePiece(){}
+
     public int getRow() {
         return row;
     }

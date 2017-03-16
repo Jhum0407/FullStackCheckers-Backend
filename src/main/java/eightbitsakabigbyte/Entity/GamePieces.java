@@ -1,10 +1,12 @@
 
 package eightbitsakabigbyte.Entity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
-
-public class GamePieces extends ArrayList {
+@Component
+public class GamePieces extends ArrayList<GamePiece> {
 
     private int pieceCounter = 1;
 

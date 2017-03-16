@@ -2,29 +2,41 @@ package eightbitsakabigbyte.Entity;
 
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 /**
  * Created by jeriahhumphrey on 3/8/17.
  */
+
+@Component
 public class GameLogic {
+
+    private GamePieces gamePieces= new GamePieces();
+
+
     private int changeIndex;
     PieceMovement move= new PieceMovement();
 
-//
-//    public boolean isLegalMove(GameBoard board, MoveRequest request) {
-//        for (int i = 0; i < 8; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                if ((board.getGameBoard()[i][j].getIdentifier() == request.getId())
-//                        && (board.getGameBoard()[request.getRow()][request.getColumn()].getIdentifier() < 0)
-//                        && (i - request.getRow() == 1 && (j - request.getColumn() == 1 || j - request.getColumn() == -1))) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public GamePieces getGamePieces() {
+        return gamePieces;
+    }
+
+    public void setGamePieces(GamePieces gamePieces) {
+        this.gamePieces = gamePieces;
+    }
+
+
+
+    {
+
+        gamePieces.createGamePieces();
+    }
 
     //Get the board with the requested move and compare to the current board
     //If there is a change, return true

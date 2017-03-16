@@ -2,11 +2,13 @@ package eightbitsakabigbyte.AILogic;
 
 import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.GamePieces;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 import static eightbitsakabigbyte.AILogic.Pieces.EMPTY;
 
+@Component
 public class AIController {
 
     public byte highestCounter;
@@ -17,7 +19,7 @@ public class AIController {
     PieceMovement pm = new PieceMovement();
 
 
-    public ArrayList<GamePiece> decideMove(GamePieces gameBoard){
+    public GamePieces decideMove(GamePieces gameBoard){
         for(int i = 0; i < gameBoard.size(); i++){
             if(gameBoard.getPiece(i).getIdentifier() < 13){
                 if(pm.checkAvailableJump(gameBoard.getPiece(i), gameBoard)){
