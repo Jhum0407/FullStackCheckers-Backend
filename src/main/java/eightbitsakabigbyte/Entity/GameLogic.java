@@ -84,15 +84,80 @@ public class GameLogic {
         return false;
     }
 
-    public boolean isOccupiedByEnemy(GamePieces currentPieces, GamePieces changedPieces){
-        if(isOccupiedSpace(currentPieces, changedPieces)){
-            if(move.checkSpace(currentPieces.getPiece(changeIndex)).equals(ENEMY)||move.checkSpace(currentPieces.getPiece(changeIndex)).equals(ENEMY_KING)){
+    public boolean isAvailableJumpUpperLeft(GamePiece piece){
+        if(move.checkUpperLeft(piece).equals(ENEMY)||move.checkUpperLeft(piece).equals(ENEMY_KING)){
+            int holdRow=piece.getRow();
+            int holdColumn=piece.getColumn();
+            piece.setRow(piece.getRow()-1);
+            piece.setColumn(piece.getColumn()-1);
+            if(move.checkUpperLeft(piece).equals(EMPTY)){
+                piece.setRow(holdRow);
+                piece.setColumn(holdColumn);
                 return true;
             }
+            piece.setRow(holdRow);
+            piece.setColumn(holdColumn);
 
         }
         return false;
     }
+
+    public boolean isAvailableJumpUpperRight(GamePiece piece){
+        if(move.checkUpperRight(piece).equals(ENEMY)||move.checkUpperRight(piece).equals(ENEMY_KING)){
+            int holdRow=piece.getRow();
+            int holdColumn=piece.getColumn();
+            piece.setRow(piece.getRow()-1);
+            piece.setColumn(piece.getColumn()+1);
+            if(move.checkUpperRight(piece).equals(EMPTY)){
+                piece.setRow(holdRow);
+                piece.setColumn(holdColumn);
+                return true;
+            }
+            piece.setRow(holdRow);
+            piece.setColumn(holdColumn);
+
+        }
+        return false;
+    }
+
+    public boolean isAvailableJumpLowerLeft(GamePiece piece){
+        if(move.checkLowerLeft(piece).equals(ENEMY)||move.checkLowerLeft(piece).equals(ENEMY_KING)){
+            int holdRow=piece.getRow();
+            int holdColumn=piece.getColumn();
+            piece.setRow(piece.getRow()+1);
+            piece.setColumn(piece.getColumn()-1);
+            if(move.checkLowerLeft(piece).equals(EMPTY)){
+                piece.setRow(holdRow);
+                piece.setColumn(holdColumn);
+                return true;
+            }
+            piece.setRow(holdRow);
+            piece.setColumn(holdColumn);
+
+        }
+        return false;
+    }
+
+    public boolean isAvailableJumpLowerRight(GamePiece piece){
+        if(move.checkLowerRight(piece).equals(ENEMY)||move.checkLowerRight(piece).equals(ENEMY_KING)){
+            int holdRow=piece.getRow();
+            int holdColumn=piece.getColumn();
+            piece.setRow(piece.getRow()+1);
+            piece.setColumn(piece.getColumn()+1);
+            if(move.checkLowerRight(piece).equals(EMPTY)){
+                piece.setRow(holdRow);
+                piece.setColumn(holdColumn);
+                return true;
+            }
+            piece.setRow(holdRow);
+            piece.setColumn(holdColumn);
+
+        }
+        return false;
+    }
+
+
+
 
 
 
