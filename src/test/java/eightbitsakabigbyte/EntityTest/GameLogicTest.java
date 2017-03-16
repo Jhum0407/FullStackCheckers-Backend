@@ -1,5 +1,7 @@
 package eightbitsakabigbyte.EntityTest;
 
+import eightbitsakabigbyte.AILogic.PieceMovement;
+import eightbitsakabigbyte.AILogic.Pieces;
 import eightbitsakabigbyte.Entity.GameLogic;
 import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.GamePieces;
@@ -9,6 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameLogicTest {
+    PieceMovement move;
     GameLogic logic;
     GamePieces currentPieces;
     GamePieces changedPieces;
@@ -19,6 +22,7 @@ public class GameLogicTest {
 
     @Before
     public void setUp(){
+        move = new PieceMovement();
         currentPieces=new GamePieces();
         changedPieces=new GamePieces();
         changedPieces2=new GamePieces();
@@ -32,12 +36,15 @@ public class GameLogicTest {
         changedPiecesKing2.createGamePieces();
         changedPieces.getPiece(13).setRow(4);
         changedPieces.getPiece(13).setColumn(3);
+
         changedPieces2.getPiece(21).setColumn(3);
         changedPieces2.getPiece(21).setRow(6);
+
         changedPiecesKing.getPiece(13).setRow(3);
         changedPiecesKing.getPiece(13).setColumn(4);
-        changedPiecesKing2.getPiece(13).setRow(4);
-        changedPiecesKing2.getPiece(13).setColumn(3);
+        //changedPiecesKing2.getPiece(13).setRow(4);
+        //changedPiecesKing2.getPiece(13).setColumn(3);
+
 
 
 
@@ -61,7 +68,7 @@ public class GameLogicTest {
 
     @Test
     public void isLegalMoveUpTotheRight(){
-        assertTrue(logic.isLegalMovePawn(currentPieces, changedPieces));
+        assertTrue(logic.isLegalMove(currentPieces, changedPieces));
     }
 
     @Test
@@ -73,7 +80,7 @@ public class GameLogicTest {
     @Test
     public void isIllegalMoveWrongSpotColumn(){
         changedPieces.getPiece(13).setColumn(2);
-        assertFalse(logic.isLegalMovePawn(currentPieces, changedPieces));
+        assertFalse(logic.isLegalMove(currentPieces, changedPieces));
     }
 
     @Test
@@ -101,7 +108,7 @@ public class GameLogicTest {
     @Test
     public void isLegalMoveUpTotheLeftKing(){
         changedPieces.getPiece(13).setColumn(1);
-        assertTrue(logic.isLegalMovePawn(currentPieces, changedPieces));
+        assertTrue(logic.isLegalMove(currentPieces, changedPieces));
     }
 
     @Test
@@ -114,6 +121,19 @@ public class GameLogicTest {
         changedPiecesKing2.getPiece(13).setColumn(5);
         assertTrue(logic.isLegalMoveKing(changedPiecesKing, changedPiecesKing2));
     }
+
+    @Test
+    public void isAvailableJumpUpperRightTest(){
+        changedPieces.getPiece(13).setColumn(3);
+        changedPieces.getPiece(13).setRow(4);
+        changedPieces.getPiece(10).setColumn(4);
+        changedPieces.getPiece(10).setRow(3);
+        assertEquals(Pieces.FRIENDLY, move.checkUpperRight(changedPieces.getPiece(13).getRow(), changedPieces.getPiece(13).getColumn(), changedPieces));
+
+    }
+
+
+
 
 
 

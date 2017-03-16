@@ -45,4 +45,7 @@ public class GamePieces extends ArrayList {
     public GamePiece getPiece(int index){
         return (GamePiece) this.get(index);
     }
+    public void setPiece(GamePiece piece){
+        add(piece);
+    }
 }

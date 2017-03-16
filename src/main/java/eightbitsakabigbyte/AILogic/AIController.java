@@ -1,6 +1,7 @@
 package eightbitsakabigbyte.AILogic;
 
 import eightbitsakabigbyte.Entity.GamePiece;
+import eightbitsakabigbyte.Entity.GamePieces;
 
 import java.util.ArrayList;
 
@@ -15,34 +16,35 @@ public class AIController {
 
     PieceMovement pm = new PieceMovement();
 
-    public ArrayList<GamePiece> decideMove(ArrayList<GamePiece> gameBoard){
+
+    public ArrayList<GamePiece> decideMove(GamePieces gameBoard){
         for(int i = 0; i < gameBoard.size(); i++){
-            if(gameBoard.get(i).getIdentifier() < 13){
-                if(pm.checkAvailableJump(gameBoard.get(i))){
+            if(gameBoard.getPiece(i).getIdentifier() < 13){
+                if(pm.checkAvailableJump(gameBoard.getPiece(i), gameBoard)){
                     return gameBoard;
                 }
-                checkForMoves(gameBoard.get(i));
+                checkForMoves(gameBoard.getPiece(i), gameBoard);
             }
         }
         makeMove(bestMovePiece.get(0), bestMoveRow.get(0), bestMoveColumn.get(0));
         return gameBoard;
     }
 
-    public void checkForMoves(GamePiece piece){
-        if(pm.checkLowerLeft(piece) == EMPTY) {
-            byte value =  pm.determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1);
+    public void checkForMoves(GamePiece piece, GamePieces board){
+        if(pm.checkLowerLeft(piece, board) == EMPTY) {
+            byte value =  pm.determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() - 1, board);
             assignMove(piece, piece.getRow() + 1, piece.getColumn() - 1, value);
         }
-        if(pm.checkLowerRight(piece) == EMPTY) {
-            byte value = pm.determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1);
+        if(pm.checkLowerRight(piece, board) == EMPTY) {
+            byte value = pm.determineValueOfMove(piece, piece.getRow() + 1, piece.getColumn() + 1,board);
             assignMove(piece, piece.getRow() + 1, piece.getColumn() + 1, value);
         }
-        if(piece.getIsKing() == true && pm.checkUpperLeft(piece) == EMPTY){
-            byte value =  pm.determineValueOfMove(piece, piece.getRow() - 1, piece.getColumn() - 1);
+        if(piece.getIsKing() == true && pm.checkUpperLeft(piece,board) == EMPTY){
+            byte value =  pm.determineValueOfMove(piece, piece.getRow() - 1, piece.getColumn() - 1,board);
             assignMove(piece, piece.getRow() - 1, piece.getColumn() - 1, value);
         }
-        if(piece.getIsKing() == true && pm.checkUpperRight(piece) == EMPTY){
-            byte value =  pm.determineValueOfMove(piece, piece.getRow() - 1, piece.getColumn() + 1);
+        if(piece.getIsKing() == true && pm.checkUpperRight(piece,board) == EMPTY){
+            byte value =  pm.determineValueOfMove(piece, piece.getRow() - 1, piece.getColumn() + 1,board);
             assignMove(piece, piece.getRow() - 1, piece.getColumn() + 1, value);
         }
     }

@@ -39,19 +39,21 @@ public class GameController {
 
 
     //Get the requested board/move from the human player and return true if valid
-//    @RequestMapping(value = "/moverequest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public GamePieces getRequestedMove(@RequestBody ArrayList<GamePiece> gamePiece){
-//        //send note to GameLogic to see if move is legal (if not return board/pieces to front-end) 
-//        //in Service, if move is legal, pass move and pieces to AI
-//        GameLogic gameLogic = new GameLogic();
-//
-//        if(gameLogic.isLegalMove(request)){
-//            AIController aiController = new AIController();
-//            aiController.decideMove(gamePiece);
-//            return getAllPieces().gamePieces; //return an updated board
-//        } else
-//            return getAllPieces().gamePieces; //return the original board
-//    }
+/*
+    @RequestMapping(value = "/moverequest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GamePieces getRequestedMove(@RequestBody ArrayList<GamePiece> gamePiece){
+        //send note to GameLogic to see if move is legal (if not return board/pieces to front-end) 
+        //in Service, if move is legal, pass move and pieces to AI
+        GameLogic gameLogic = new GameLogic();
+
+        if(gameLogic.isLegalMove(request)){
+            AIController aiController = new AIController();
+            aiController.decideMove(gamePiece);
+            return getAllPieces().gamePieces; //return an updated board
+        } else
+            return getAllPieces().gamePieces; //return the original board
+    }
+*/
 
     //Return
     @RequestMapping(value = "/returnedboard", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)

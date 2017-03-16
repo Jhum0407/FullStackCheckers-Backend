@@ -3,16 +3,14 @@ package eightbitsakabigbyte.Entity;
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
 
-import static eightbitsakabigbyte.AILogic.Pieces.EMPTY;
-import static eightbitsakabigbyte.AILogic.Pieces.ENEMY;
-import static eightbitsakabigbyte.AILogic.Pieces.ENEMY_KING;
+import static eightbitsakabigbyte.AILogic.Pieces.*;
 
 /**
  * Created by jeriahhumphrey on 3/8/17.
  */
 public class GameLogic {
     private int changeIndex;
-    PieceMovement move;
+    PieceMovement move= new PieceMovement();
 
 //
 //    public boolean isLegalMove(GameBoard board, MoveRequest request) {
@@ -69,6 +67,14 @@ public class GameLogic {
         return false;
     }
 
+    public boolean isLegalMove(GamePieces currentGamePieces, GamePieces changedGamePieces){
+        comparePiecesOnBoard(currentGamePieces, changedGamePieces);
+                if(currentGamePieces.getPiece(changeIndex).getIsKing()){
+            return isLegalMoveKing(currentGamePieces, changedGamePieces);
+                }
+                return isLegalMovePawn(currentGamePieces, changedGamePieces);
+    }
+
     public boolean isLegalMoveKing(GamePieces currentGamePieces, GamePieces changedGamePieces){
         if(!(isOccupiedSpace(currentGamePieces, changedGamePieces))) {
 
@@ -84,13 +90,15 @@ public class GameLogic {
         return false;
     }
 
-    public boolean isAvailableJumpUpperLeft(GamePiece piece){
-        if(move.checkUpperLeft(piece).equals(ENEMY)||move.checkUpperLeft(piece).equals(ENEMY_KING)){
+    public boolean isAvailableJumpUpperLeft(GamePiece piece, GamePieces board){
+
+
+        if(move.checkUpperLeft(piece,board).equals(FRIENDLY)||move.checkUpperLeft(piece, board).equals(FRIENDLY_KING)){
             int holdRow=piece.getRow();
             int holdColumn=piece.getColumn();
             piece.setRow(piece.getRow()-1);
             piece.setColumn(piece.getColumn()-1);
-            if(move.checkUpperLeft(piece).equals(EMPTY)){
+            if(move.checkUpperLeft(piece,board).equals(EMPTY)){
                 piece.setRow(holdRow);
                 piece.setColumn(holdColumn);
                 return true;
@@ -102,31 +110,13 @@ public class GameLogic {
         return false;
     }
 
-    public boolean isAvailableJumpUpperRight(GamePiece piece){
-        if(move.checkUpperRight(piece).equals(ENEMY)||move.checkUpperRight(piece).equals(ENEMY_KING)){
-            int holdRow=piece.getRow();
-            int holdColumn=piece.getColumn();
-            piece.setRow(piece.getRow()-1);
-            piece.setColumn(piece.getColumn()+1);
-            if(move.checkUpperRight(piece).equals(EMPTY)){
-                piece.setRow(holdRow);
-                piece.setColumn(holdColumn);
-                return true;
-            }
-            piece.setRow(holdRow);
-            piece.setColumn(holdColumn);
-
-        }
-        return false;
-    }
-
-    public boolean isAvailableJumpLowerLeft(GamePiece piece){
-        if(move.checkLowerLeft(piece).equals(ENEMY)||move.checkLowerLeft(piece).equals(ENEMY_KING)){
+    public boolean isAvailableJumpUpperRight(GamePiece piece,GamePieces board){
+        if(move.checkLowerLeft(piece,board).equals(FRIENDLY)||move.checkLowerLeft(piece,board).equals(FRIENDLY_KING)){
             int holdRow=piece.getRow();
             int holdColumn=piece.getColumn();
             piece.setRow(piece.getRow()+1);
             piece.setColumn(piece.getColumn()-1);
-            if(move.checkLowerLeft(piece).equals(EMPTY)){
+            if(move.checkLowerLeft(piece,board).equals(EMPTY)){
                 piece.setRow(holdRow);
                 piece.setColumn(holdColumn);
                 return true;
@@ -138,13 +128,31 @@ public class GameLogic {
         return false;
     }
 
-    public boolean isAvailableJumpLowerRight(GamePiece piece){
-        if(move.checkLowerRight(piece).equals(ENEMY)||move.checkLowerRight(piece).equals(ENEMY_KING)){
+    public boolean isAvailableJumpLowerLeft(GamePiece piece, GamePieces board){
+        if(move.checkLowerLeft(piece,board).equals(ENEMY)||move.checkLowerLeft(piece,board).equals(ENEMY_KING)){
+            int holdRow=piece.getRow();
+            int holdColumn=piece.getColumn();
+            piece.setRow(piece.getRow()+1);
+            piece.setColumn(piece.getColumn()-1);
+            if(move.checkLowerLeft(piece,board).equals(EMPTY)){
+                piece.setRow(holdRow);
+                piece.setColumn(holdColumn);
+                return true;
+            }
+            piece.setRow(holdRow);
+            piece.setColumn(holdColumn);
+
+        }
+        return false;
+    }
+
+    public boolean isAvailableJumpLowerRight(GamePiece piece, GamePieces board){
+        if(move.checkLowerRight(piece,board).equals(ENEMY)||move.checkLowerRight(piece,board).equals(ENEMY_KING)){
             int holdRow=piece.getRow();
             int holdColumn=piece.getColumn();
             piece.setRow(piece.getRow()+1);
             piece.setColumn(piece.getColumn()+1);
-            if(move.checkLowerRight(piece).equals(EMPTY)){
+            if(move.checkLowerRight(piece,board).equals(EMPTY)){
                 piece.setRow(holdRow);
                 piece.setColumn(holdColumn);
                 return true;
