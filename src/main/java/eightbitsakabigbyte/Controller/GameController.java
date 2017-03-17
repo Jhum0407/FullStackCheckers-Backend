@@ -19,6 +19,7 @@ public class GameController {
 
     @Autowired
     private GameLogic gameLogic;
+
     @Autowired
     private AIController aiController;
     //Get the changed board that has a move made
@@ -34,10 +35,10 @@ public class GameController {
     public GamePieces getRequestedMove(@RequestBody GamePieces gamePiece) {
         //send note to GameLogic to see if move is legal (if not return board/pieces to front-end) 
         //in Service, if move is legal, pass move and pieces to AI
-      //  gameLogic.  ==> do we need to check for forcejump here?
+        //  gameLogic.  ==> do we need to check for forcejump here?
         if (gameLogic.isLegalMove(gameLogic.getGamePieces(), gamePiece) == true) {
             gameLogic.setGamePieces(gamePiece);
-           return aiController.decideMove(gamePiece);
+            return aiController.decideMove(gamePiece);
 
 
         } else {
@@ -46,13 +47,4 @@ public class GameController {
 
     }
 
-        //Return
-//        @RequestMapping(value = "/returnedboard", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-//        public GamePieces getMoveRequest() {
-//            //receive AI's move and updated board from Service
-//            //return updated pieces back to front-end
-//            GameLogic gameLogic = new GameLogic();
-////            gameLogic.
-//            return gameLogic.returnedBoard();
-//        }
     }

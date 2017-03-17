@@ -19,7 +19,6 @@ public class GameLogic {
 
     private GamePieces gamePieces= new GamePieces();
 
-
     private int changeIndex;
     PieceMovement move= new PieceMovement();
 
@@ -42,7 +41,7 @@ public class GameLogic {
     //If there is a change, return true
     public boolean comparePiecesOnBoard(GamePieces currentGamePieces, GamePieces changedGamePieces){
         int i;
-        for( i =12; i<24;i++){
+        for( i =12; i<currentGamePieces.size();i++){
             if(!(currentGamePieces.getPiece(i).getColumn()==changedGamePieces.getPiece(i).getColumn())){
                 changeIndex=i;
                 return true;
@@ -54,7 +53,7 @@ public class GameLogic {
     public boolean isOccupiedSpace( GamePieces currentPieces, GamePieces changedGamePieces){
        if(comparePiecesOnBoard(currentPieces, changedGamePieces)) {
 
-           for (int i = 0; i < 24; i++) {
+           for (int i = 0; i < currentPieces.size(); i++) {
                if (currentPieces.getPiece(i).getRow() == changedGamePieces.getPiece(changeIndex).getRow() &&
                        currentPieces.getPiece(i).getColumn() == changedGamePieces.getPiece(changeIndex).getColumn()) {
 
