@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PieceMovementTest {
@@ -221,6 +220,7 @@ public class PieceMovementTest {
         board2.setPiece(new GamePiece(false, 22, 6, 1));
         board2.setPiece(new GamePiece(false, 2, 4, 3));
         assertTrue(pieceMovement.isLeavingOthersForJump(board2.getPiece(2), board2));    }
+
 
 
 }

@@ -2,11 +2,7 @@ package eightbitsakabigbyte.Entity;
 
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
@@ -42,13 +38,17 @@ public class GameLogic {
     //If there is a change, return true
     public boolean comparePiecesOnBoard(GamePieces currentGamePieces, GamePieces changedGamePieces){
         int i;
-        for( i =12; i<currentGamePieces.size();i++){
-            if(!(currentGamePieces.getPiece(i).getColumn()==changedGamePieces.getPiece(i).getColumn())){
-                changeIndex=i;
-                return true;
+        for(i = 0; i < currentGamePieces.size(); i++) {
+            for (int j = 0; j < changedGamePieces.size(); j++) {
+                if (currentGamePieces.getPiece(i).getIdentifier() == changedGamePieces.getPiece(j).getIdentifier()) {
+                    if (!(currentGamePieces.getPiece(i).getColumn() == changedGamePieces.getPiece(j).getColumn())) {
+                        changeIndex = j;
+                        return true;
+                    }
+                }
             }
-        } return false;
-
+        }
+        return false;
     }
 
     public boolean isOccupiedSpace( GamePieces currentPieces, GamePieces changedGamePieces){

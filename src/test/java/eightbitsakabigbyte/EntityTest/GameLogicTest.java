@@ -1,12 +1,11 @@
 package eightbitsakabigbyte.EntityTest;
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
-import eightbitsakabigbyte.AILogic.Pieces;
 import eightbitsakabigbyte.Entity.GameLogic;
-import eightbitsakabigbyte.Entity.GamePiece;
 import eightbitsakabigbyte.Entity.GamePieces;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class GameLogicTest {
@@ -18,6 +17,7 @@ public class GameLogicTest {
     GamePieces changedPieces2;
     GamePieces changedPiecesKing;
     GamePieces changedPiecesKing2;
+    GamePieces blankBoard;
 
 
     @Before
@@ -162,6 +162,8 @@ public class GameLogicTest {
     public void isTakenJumpLeftTest() {
         currentPieces.getPiece(10).setColumn(3);
         currentPieces.getPiece(10).setRow(4);
+        changedPieces3.getPiece(10).setColumn(3);
+        changedPieces3.getPiece(10).setRow(4);
         changedPieces3.getPiece(14).setRow(3);
         changedPieces3.getPiece(14).setColumn(2);
         assertTrue(logic.takenJumpLeft(currentPieces,changedPieces3));
@@ -184,6 +186,8 @@ public class GameLogicTest {
     public void isLegalMoveJumpTest() {
         currentPieces.getPiece(10).setColumn(3);
         currentPieces.getPiece(10).setRow(4);
+        changedPieces3.getPiece(10).setColumn(3);
+        changedPieces3.getPiece(10).setRow(4);
         changedPieces3.getPiece(14).setRow(3);
         changedPieces3.getPiece(14).setColumn(2);
         assertTrue(logic.isLegalMove(currentPieces,changedPieces3));
@@ -194,9 +198,11 @@ public class GameLogicTest {
     public void isLegalMoveForceJumpTest() {
         currentPieces.getPiece(10).setColumn(3);
         currentPieces.getPiece(10).setRow(4);
+        changedPieces3.getPiece(10).setColumn(3);
+        changedPieces3.getPiece(10).setRow(4);
         changedPieces3.getPiece(15).setRow(4);
         changedPieces3.getPiece(15).setColumn(5);
-        assertTrue(logic.isLegalMove(currentPieces,changedPieces3));
+        assertFalse(logic.isLegalMove(currentPieces,changedPieces3));
 
     }
 
@@ -217,7 +223,8 @@ public class GameLogicTest {
         currentPieces.getPiece(13).setRow(3);
         currentPieces.getPiece(10).setColumn(3);
         currentPieces.getPiece(10).setRow(4);
-
+        changedPieces3.getPiece(10).setColumn(3);
+        changedPieces3.getPiece(10).setRow(4);
         assertTrue(logic.takenJumpLowerLeft(currentPieces, changedPieces3));
 
     }
@@ -229,6 +236,8 @@ public class GameLogicTest {
         currentPieces.getPiece(14).setRow(3);
         currentPieces.getPiece(8).setColumn(3);
         currentPieces.getPiece(8).setRow(4);
+        changedPieces3.getPiece(8).setColumn(3);
+        changedPieces3.getPiece(8).setRow(4);
         assertTrue(logic.takenJumpLowerRight(currentPieces, changedPieces3));
 
     }
