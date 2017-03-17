@@ -18,6 +18,7 @@ import static eightbitsakabigbyte.AILogic.Pieces.*;
 public class GameLogic {
 
     private GamePieces gamePieces= new GamePieces();
+    ArrayList <Integer> jumps = new ArrayList();
 
 
     private int changeIndex;
@@ -79,13 +80,13 @@ public class GameLogic {
         return false;
     }
 
-    public boolean isLegalMove(GamePieces currentGamePieces, GamePieces changedGamePieces){
-        comparePiecesOnBoard(currentGamePieces, changedGamePieces);
-                if(currentGamePieces.getPiece(changeIndex).getIsKing()){
-            return isLegalMoveKing(currentGamePieces, changedGamePieces);
-                }
-                return isLegalMovePawn(currentGamePieces, changedGamePieces);
-    }
+    public boolean isLegalMove(GamePieces currentGamePieces, GamePieces changedGamePieces) {
+            comparePiecesOnBoard(currentGamePieces, changedGamePieces);
+            if (currentGamePieces.getPiece(changeIndex).getIsKing()) {
+                return isLegalMoveKing(currentGamePieces, changedGamePieces);
+            }
+            return isLegalMovePawn(currentGamePieces, changedGamePieces);
+        }
 
     public boolean isLegalMoveKing(GamePieces currentGamePieces, GamePieces changedGamePieces){
         if(!(isOccupiedSpace(currentGamePieces, changedGamePieces))) {
@@ -158,6 +159,8 @@ public class GameLogic {
         return false;
     }
 
+
+
     public boolean isAvailableJumpLowerRight(GamePiece piece, GamePieces board){
         if(move.checkLowerRight(piece,board).equals(ENEMY)||move.checkLowerRight(piece,board).equals(ENEMY_KING)){
             int holdRow=piece.getRow();
@@ -176,21 +179,18 @@ public class GameLogic {
         return false;
     }
 
-
-
-
-
-
-    public GamePieces returnedBoard(){
-        //Get the board after the AILogic made its move.
-        GamePieces gamePieces = new GamePieces();
-        //Create a piece that represents a changed board
-        GamePiece gamePiece = new GamePiece(true, 3, 2, 5);
-        gamePieces.createGamePieces();
-        //place a piece as the nth item in the Json
-        gamePieces.add(1,gamePiece);
-        return gamePieces;
-    }
+//    public boolean isAvailableJump(GamePiece piece, GamePieces board, GamePieces compare) {
+//        if (piece.getIsKing() == false) {
+//            if (isAvailableJumpUpperLeft(piece, board)) {
+//                comparePiecesOnBoard(board,compare){
+//
+//                }
+//
+//            }
+//
+//
+//        }
+//    }
 
     public int getChangeIndex(){
         return changeIndex;
