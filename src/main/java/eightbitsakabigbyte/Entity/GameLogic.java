@@ -223,6 +223,8 @@ public class GameLogic {
                 comparePiecesOnBoard(current, compare);
                 if (current.getPiece(changeIndex).getRow() - 2 == compare.getPiece(changeIndex).getRow()
                         && current.getPiece(changeIndex).getColumn() - 2 == compare.getPiece(changeIndex).getColumn()) {
+                    move.removePiece(move.findPiece(current.getPiece(changeIndex).getRow()-1,
+                            current.getPiece(changeIndex).getColumn()-1, compare),compare);
                     return true;
                 }
             }
@@ -236,6 +238,8 @@ public class GameLogic {
                 comparePiecesOnBoard(current, compare);
                 if (current.getPiece(changeIndex).getRow() + 2 == compare.getPiece(changeIndex).getRow()
                         && current.getPiece(changeIndex).getColumn() - 2 == compare.getPiece(changeIndex).getColumn()) {
+                    move.removePiece(move.findPiece(current.getPiece(changeIndex).getRow()+1,
+                            current.getPiece(changeIndex).getColumn()-1, compare),compare);
                     return true;
                 }
             }
@@ -249,6 +253,8 @@ public class GameLogic {
                 comparePiecesOnBoard(current, compare);
                 if (current.getPiece(changeIndex).getRow() + 2 == compare.getPiece(changeIndex).getRow()
                         && current.getPiece(changeIndex).getColumn() + 2 == compare.getPiece(changeIndex).getColumn()) {
+                    move.removePiece(move.findPiece(current.getPiece(changeIndex).getRow()+1,
+                            current.getPiece(changeIndex).getColumn()+1, compare),compare);
                     return true;
                 }
             }
@@ -262,6 +268,8 @@ public class GameLogic {
                 comparePiecesOnBoard(current, compare);
                 if (current.getPiece(changeIndex).getRow() - 2 == compare.getPiece(changeIndex).getRow()
                         && current.getPiece(changeIndex).getColumn() + 2 == compare.getPiece(changeIndex).getColumn()) {
+                    move.removePiece(move.findPiece(current.getPiece(changeIndex).getRow()-1,
+                            current.getPiece(changeIndex).getColumn()+1, compare),compare);
                     return true;
                 }
             }

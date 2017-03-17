@@ -167,6 +167,19 @@ public class GameLogicTest {
         assertTrue(logic.takenJumpLeft(currentPieces,changedPieces3));
 
     }
+
+    @Test
+    public void isTakenJumpLeftResizeTest() {
+        currentPieces.getPiece(10).setColumn(3);
+        currentPieces.getPiece(10).setRow(4);
+        changedPieces3.getPiece(10).setColumn(3);
+        changedPieces3.getPiece(10).setRow(4);
+        changedPieces3.getPiece(14).setRow(3);
+        changedPieces3.getPiece(14).setColumn(2);
+        logic.takenJumpLeft(currentPieces,changedPieces3);
+        assertEquals(23, changedPieces3.size());
+
+    }
     @Test
     public void isLegalMoveJumpTest() {
         currentPieces.getPiece(10).setColumn(3);
