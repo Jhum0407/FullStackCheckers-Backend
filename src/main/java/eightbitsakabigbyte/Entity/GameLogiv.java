@@ -1,12 +1,11 @@
 package eightbitsakabigbyte.Entity;
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
-import org.springframework.stereotype.Component;
 
 import static eightbitsakabigbyte.AILogic.Pieces.*;
 
-@Component
-public class GameLogic {
+
+public class GameLogiv {
 
     private GamePieces gamePieces = new GamePieces();
     private PieceMovement move = new PieceMovement();
@@ -38,7 +37,7 @@ public class GameLogic {
         }
 
         if(spaceOccupied(currentBoard, changedPiece)){
-            return false;
+           return false;
         }
         return true;
     }
@@ -141,5 +140,6 @@ public class GameLogic {
         }
         return false;
     }
-
 }
+
+

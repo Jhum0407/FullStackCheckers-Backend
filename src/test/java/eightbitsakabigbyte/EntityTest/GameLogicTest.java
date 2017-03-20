@@ -1,3 +1,4 @@
+/*
 package eightbitsakabigbyte.EntityTest;
 
 import eightbitsakabigbyte.AILogic.PieceMovement;
@@ -263,3 +264,4 @@ public class GameLogicTest {
 
 
 
+*/
